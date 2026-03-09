@@ -72,3 +72,5 @@ O projeto segue uma arquitetura baseada no padrão MVC:
 - Everton Nunes Batista  
 - Samara Mendonça Nunes  
 - Sergio Gonçalves da Silva Filho
+
+- ## Entrega 1
