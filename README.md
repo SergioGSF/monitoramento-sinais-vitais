@@ -32,11 +32,11 @@ Facilitar a comunicação entre interessados e a administração da Arena, incen
 
 1. Clone o repositório
 
-git clone https://github.com/SergioGSF/monitoramento-sinais-vitais
+git clone https://github.com/SergioGSF/programa-cultural-digital
 
 2. Acesse a pasta do projeto
 
-cd monitoramento-sinais-vitais
+cd programa-cultural-digital
 
 3. Execute a aplicação
 
