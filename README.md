@@ -1,10 +1,10 @@
-# Sistema de Monitoramento de Sinais Vitais
+# Arena de Pernambuco
 
-Sistema web desenvolvido para registro e acompanhamento de indicadores de saúde, permitindo monitorar parâmetros importantes como frequência cardíaca, temperatura corporal e oxigenação sanguínea. O sistema possibilita o acompanhamento do histórico clínico de pacientes e a geração de alertas quando valores críticos são identificados.
+Aplicação web desenvolvida em Java com Spring Boot para melhorar a ocupação e a divulgação da Arena Pernambuco. O sistema atua entre a administração do equipamento público e a população, combatendo a desaproveitamento do espaço através de uma vitrine digital de eventos e ferramentas de gestão de dados.
 
 ## Objetivo do Projeto
 
-O objetivo deste sistema é auxiliar no acompanhamento básico de sinais vitais, permitindo registrar medições, acompanhar a evolução dos indicadores de saúde dos pacientes e identificar possíveis situações de risco a partir de alertas automáticos.
+Facilitar a comunicação entre interessados e a administração da Arena, incentivando o uso do espaço para diversos tipos de eventos, além de fornecer métricas estatísticas para auxiliar na tomada de decisões governamentais, relacionados ao uso do espaço.
 
 ## Tecnologias Utilizadas
 
@@ -23,10 +23,10 @@ O objetivo deste sistema é auxiliar no acompanhamento básico de sinais vitais,
 
 ## Funcionalidades
 
-- Cadastro e gerenciamento de pacientes  
-- Registro de medições biométricas  
-- Consulta de histórico clínico dos pacientes  
-- Sistema de alertas para valores fora da normalidade  
+- Gestaõ de eventos  
+- Vitrini de eventos  
+- Sistema de reservas 
+- Painel de dados 
 
 ## Como Executar o Projeto
 
@@ -58,11 +58,11 @@ O projeto segue uma arquitetura baseada no padrão MVC:
 
 ## Possíveis Melhorias Futuras
 
-- Implementação de autenticação e controle de acesso de usuários  
-- Integração com dispositivos de monitoramento de saúde (IoT / wearables)  
-- Implementação de API REST para integração com aplicações externas  
-- Dashboard com gráficos para análise dos sinais vitais  
-- Sistema de notificações em tempo real
+- Integração com APIs de geolocalização e mapas 
+- Sistema de notificação automática  
+- Integração odiciais com sistemas governamentais
+- Validade jurídica de operações
+- Automações avançadas 
 
 ## Equipe
 
