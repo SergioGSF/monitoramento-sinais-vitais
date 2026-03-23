@@ -10,4 +10,5 @@ public class ArenapernambucoApplication {
 		SpringApplication.run(ArenapernambucoApplication.class, args);
 	}
 
+
 }
