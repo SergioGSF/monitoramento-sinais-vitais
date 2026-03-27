@@ -6,7 +6,11 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>4.0.4</version>
+<<<<<<< HEAD
 		<relativePath/> 
+=======
+		<relativePath/> <!-- lookup parent from repository -->
+>>>>>>> 021efe57436934dc59377bea1290920604152e63
 	</parent>
 	<groupId>br.com.projeto</groupId>
 	<artifactId>arenapernambuco</artifactId>
@@ -71,11 +75,14 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+<<<<<<< HEAD
 		<dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+=======
+>>>>>>> 021efe57436934dc59377bea1290920604152e63
 	</dependencies>
 
 	<build>
