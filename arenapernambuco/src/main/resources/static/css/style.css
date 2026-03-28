@@ -133,7 +133,11 @@ body {
 }
 
 .input-box {
+<<<<<<< HEAD
     margin-bottom: 25px;
+=======
+    margin-bottom: 20px;
+>>>>>>> 2dca80b (Cadastro)
 }
 
 .input-box label {
@@ -147,7 +151,11 @@ body {
 
 .input-box input {
     width: 100%;
+<<<<<<< HEAD
     padding: 14px;
+=======
+    padding: 12px;
+>>>>>>> 2dca80b (Cadastro)
     border: 1px solid var(--borda);
     border-radius: 6px;
     outline: none;
@@ -160,6 +168,44 @@ body {
     box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
 }
 
+<<<<<<< HEAD
+=======
+.radio-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 5px;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-label {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid var(--borda);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.3s;
+    background-color: var(--branco);
+    color: #555;
+}
+
+.radio-label:hover {
+    border-color: var(--laranja);
+    background-color: rgba(255, 87, 34, 0.05);
+}
+
+.radio-group input[type="radio"]:checked + .radio-label {
+    background-color: var(--laranja);
+    color: var(--branco);
+    border-color: var(--laranja);
+}
+
+>>>>>>> 2dca80b (Cadastro)
 .btn-entrar {
     width: 100%;
     padding: 15px;
@@ -173,6 +219,10 @@ body {
     transition: 0.3s;
     text-transform: uppercase;
     letter-spacing: 1px;
+<<<<<<< HEAD
+=======
+    margin-top: 10px;
+>>>>>>> 2dca80b (Cadastro)
 }
 
 .btn-entrar:hover {

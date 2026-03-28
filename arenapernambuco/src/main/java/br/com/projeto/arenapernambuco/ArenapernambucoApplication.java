@@ -1,6 +1,7 @@
 package br.com.projeto.arenapernambuco;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import br.com.projeto.arenapernambuco.model.User;
 import br.com.projeto.arenapernambuco.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -52,3 +53,14 @@ public class ArenapernambucoApplication {
 
 }
 >>>>>>> 021efe57436934dc59377bea1290920604152e63
+=======
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ArenapernambucoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ArenapernambucoApplication.class, args);
+    }
+}
+>>>>>>> 2dca80b (Cadastro)

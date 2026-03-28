@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
+<<<<<<< HEAD
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
 <<<<<<< HEAD
@@ -61,4 +62,26 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+=======
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/cadastro", "/cadastrar", "/login", "/h2-console/**", "/css/**", "/js/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+            .formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/home", true)
+                .permitAll()
+            );
+        return http.build();
+    }
+>>>>>>> 2dca80b (Cadastro)
 }
