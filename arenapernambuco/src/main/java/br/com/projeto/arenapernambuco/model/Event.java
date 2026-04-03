@@ -43,7 +43,7 @@ public class Event {
     private Status status = Status.active;
     
     @ManyToOne
-    @JoinColumn(name = "created_by", nullable = false)
+    @JoinColumn(name = "created_by", nullable = true)
     private User createdBy;
     
     @Column(name = "created_at")

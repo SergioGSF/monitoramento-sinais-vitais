@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CadastroController {
     @GetMapping("/cadastro")
     public String cadastro() {
-        return "cadastror";
+        return "cadastro";
     }
 }
