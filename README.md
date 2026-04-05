@@ -91,6 +91,6 @@ https://trello.com/invite/b/69
 b5c446be6c97a50237b22a/ATTI5c630be81ca5f84d143179c6cc39e15402DBF0AC/poo-projeto-arena-cultural
 
 ## 📁 Entrega 2
--Issues/bug tracker: 
+- Issues/bug tracker: 
 https://github.com/SergioGSF/programa-cultural-digital/issues
 - Screencast 2 histórias:
