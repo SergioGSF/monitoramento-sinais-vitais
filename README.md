@@ -87,8 +87,7 @@ https://docs.google.com/document/d/1lhORnMbUCOVKTaVsYzWjMuSxe1MJcixIdLyDGVHj028/
 - Screencast do Figma:
 https://youtu.be/ahp9xVqzgTo
 - Trello:
-https://trello.com/invite/b/69
-b5c446be6c97a50237b22a/ATTI5c630be81ca5f84d143179c6cc39e15402DBF0AC/poo-projeto-arena-cultural
+https://trello.com/b/vi5lSu6D/poo-projeto-arena-cultural
 
 ## 📁 Entrega 2
 - Issues/bug tracker: 
