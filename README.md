@@ -23,19 +23,19 @@ Facilitar a comunicação entre interessados e a administração da Arena, incen
 
 ## 🌐 Planejamento de Infraestrutura
 
-### 1. Objetivos da Infraestrutura
+### Objetivos da Infraestrutura
 - Disponibilidade: garantir que a vitrine de eventos esteja sempre online para consulta da população.
 - Integridade: assegurar que os dados de reservas e métricas governamentais sejam armazenados de forma segura e consistente.
 - Escalabilidade: capacidade de suportar picos de acesso durante o anúncio de grandes eventos.
 
-### 2. Restrições Técnicas e de Negócio
-- Custo: Priorização de tecnologias Open Source e infraestrutura de baixo custo.
-- Conformidade: O tratamento de dados deve seguir as diretrizes da LGPD (Lei Geral de Proteção de Dados).
-- Ambiente: A aplicação deve ser executada obrigatoriamente em containers para garantir portabilidade entre servidores governamentais.
+### Restrições Técnicas e de Negócio
+- Custo: priorização de tecnologias Open Source e infraestrutura de baixo custo.
+- Conformidade: o tratamento de dados deve seguir as diretrizes da LGPD (Lei Geral de Proteção de Dados).
+- Ambiente: a aplicação deve ser executada obrigatoriamente em containers para garantir portabilidade entre servidores governamentais.
 
 ## 📈 Indicadores de Monitoramento
 
-### 1. Indicadores de Uso da Plataforma
+### Indicadores de Uso da Plataforma
 
 - Quantidade de acessos ao sistema  
 - Número de usuários cadastrados  
@@ -43,7 +43,7 @@ Facilitar a comunicação entre interessados e a administração da Arena, incen
 
 Objetivo: medir o alcance da vitrine digital e o interesse da população pelos eventos divulgados.
 
-### 2. Indicadores de Gestão de Eventos
+### Indicadores de Gestão de Eventos
 
 - Quantidade de eventos cadastrados  
 - Taxa de ocupação da Arena  
@@ -56,7 +56,7 @@ Taxa de Ocupação = (Eventos Realizados / Capacidade de Agenda Disponível) × 
 
 Objetivo: avaliar o nível de aproveitamento do espaço público e apoiar decisões estratégicas da administração.
 
-### 3. Indicadores Administrativos
+### Indicadores Administrativos
 
 - Tempo médio de resposta às solicitações  
 - Demandas pendentes  
@@ -64,7 +64,7 @@ Objetivo: avaliar o nível de aproveitamento do espaço público e apoiar decis�
 
 Objetivo: melhorar a eficiência da gestão pública no atendimento e no controle das reservas.
 
-### 4. Indicadores Técnicos
+### Indicadores Técnicos
 
 - Disponibilidade do sistema (Uptime)  
 - Tempo médio de carregamento  
@@ -76,7 +76,7 @@ Uptime = (Tempo de Funcionamento / Tempo Total) × 100
 
 Objetivo: garantir estabilidade, desempenho e acesso contínuo à plataforma.
 
-### 5. Indicadores de Segurança e Conformidade
+### Indicadores de Segurança e Conformidade
 
 - Incidentes de segurança  
 - Controle de conformidade com a LGPD  
