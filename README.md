@@ -21,6 +21,18 @@ Facilitar a comunicação entre interessados e a administração da Arena, incen
 ### 🗄️ Banco de Dados
 - MySQL (via Docker) 🐳
 
+## 🌐 Planejamento de Infraestrutura
+
+### 1. Objetivos da Infraestrutura
+- Disponibilidade: garantir que a vitrine de eventos esteja sempre online para consulta da população.
+- Integridade: assegurar que os dados de reservas e métricas governamentais sejam armazenados de forma segura e consistente.
+- Escalabilidade: capacidade de suportar picos de acesso durante o anúncio de grandes eventos.
+
+### 2. Restrições Técnicas e de Negócio
+- Custo: Priorização de tecnologias Open Source e infraestrutura de baixo custo.
+- Conformidade: O tratamento de dados deve seguir as diretrizes da LGPD (Lei Geral de Proteção de Dados).
+- Ambiente: A aplicação deve ser executada obrigatoriamente em containers para garantir portabilidade entre servidores governamentais.
+
 ## 📊 Funcionalidades
 
 - Gestaõ de eventos  
