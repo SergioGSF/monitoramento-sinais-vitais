@@ -48,8 +48,7 @@ git clone https://github.com/SergioGSF/programa-cultural-digital
 
 2. Acesse a pasta do projeto
 
-cd programa-cultural-digital
-cd arenapernambuco
+cd programa-cultural-digital\arenapernambuco
 
 3. Construir o JAR da aplicação
 
