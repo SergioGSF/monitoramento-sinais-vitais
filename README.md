@@ -88,7 +88,7 @@ Objetivo: assegurar proteção de dados e conformidade legal no ambiente governa
 ### Desempenho
 
 #### Requisito de Negócio
-Garantir acesso rápido e contínuo da população à vitrine digital de eventos da :contentReference[oaicite:0]{index=0}, especialmente em períodos de grande divulgação.
+Garantir acesso rápido e contínuo da população à vitrine digital de eventos, especialmente em períodos de grande divulgação.
 
 #### Requisito Técnico
 - Servidor com capacidade para múltiplas conexões simultâneas  
