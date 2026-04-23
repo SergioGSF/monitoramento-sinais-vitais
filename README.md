@@ -6,6 +6,22 @@ Aplicação web desenvolvida em Java com Spring Boot para melhorar a ocupação 
 
 Facilitar a comunicação entre interessados e a administração da Arena, incentivando o uso do espaço para diversos tipos de eventos, além de fornecer métricas estatísticas para auxiliar na tomada de decisões governamentais, relacionados ao uso do espaço.
 
+## 📦 Escopo
+
+- Desenvolver aplicação web em Java (Spring Boot)  
+- Definir arquitetura do sistema (MVP)  
+- Modelar domínio com DDD  
+- Implementar funcionalidades principais da aplicação  
+- Configurar infraestrutura de comunicação (rede, topologia e serviços)  
+- Implementar pipeline de CI/CD  
+- Realizar deploy em ambiente de nuvem  
+- Aplicar threads para otimização de processos  
+- Definir e coletar métricas do sistema  
+- Estruturar e armazenar dados  
+- Realizar análise estatística dos dados  
+- Criar dashboards de monitoramento e análise  
+- Validar desempenho, conectividade e disponibilidade
+  
 ## 🛠️ Tecnologias Utilizadas
 
 ### ☕ Back-end
