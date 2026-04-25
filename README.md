@@ -182,33 +182,50 @@ A topologia adotada foi do tipo estrela hierárquica, com separação entre aces
 
 ## 🚀 Como Executar o Projeto
 
-1. Clone o repositório
-\`\`\`bash
-git clone https://github.com/SergioGSF/programa-cultural-digital
-cd programa-cultural-digital\arenapernambuco
-\`\`\`
+Siga as instruções abaixo para configurar o ambiente e rodar a aplicação localmente.
 
-2. Subir os containers
-\`\`\`bash
+### Pré-requisitos
+
+Antes de começar, você precisará ter instalado em sua máquina:
+* Git
+* Docker
+* Java 17 ou superior
+
+---
+
+### Passo a Passo
+
+1. **Clone o repositório e acesse a pasta:**
+```bash
+git clone https://github.com
+cd programa-cultural-digital/arenapernambuco
+```
+
+2. **Suba os containers do Docker:**
+```bash
 docker-compose up -d
-\`\`\`
+```
 
-3. Criar o banco de dados
-\`\`\`bash
+3. **Crie o banco de dados:**
+```bash
 docker exec -it mysql_arena mysql -u root -p1234 -e "CREATE DATABASE IF NOT EXISTS arenapernambuco;"
-\`\`\`
+```
 
-4. Construir o projeto
-\`\`\`bash
-.\mvnw clean package
-\`\`\`
+4. **Construa o projeto:**
+```bash
+./mvnw clean package
+```
 
-5. Executar a aplicação
-\`\`\`bash
-.\mvnw spring-boot:run
-\`\`\`
+5. **Execute a aplicação:**
+```bash
+./mvnw spring-boot:run
+```
 
-6. Acesse no navegador
+---
+
+### Acesso
+
+Após a inicialização, a aplicação estará disponível em:
 [http://localhost:8080](http://localhost:8080)
 
 ## 🧱 Estrutura do Projeto
