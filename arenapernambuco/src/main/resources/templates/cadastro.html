@@ -14,27 +14,28 @@
     </div>
     <div class="main-content">
         <div class="login-card">
-            <form th:action="@{/cadastrar}" th:object="${usuario}" method="post" class="login-form">
+            <form th:action="@{/cadastro}" method="post" class="login-form">
                 <div class="input-box">
                     <label>Nome Completo</label>
-                    <input type="text" th:field="*{nome}" required>
+                    <input type="text" name="name" required>
                 </div>
                 <div class="input-box">
                     <label>E-mail</label>
-                    <input type="email" th:field="*{email}" required>
+                    <input type="email" name="email" required>
                 </div>
                 <div class="input-box">
                     <label>Tipo de Acesso</label>
                     <div class="radio-group">
-                        <input type="radio" th:field="*{perfil}" value="citizen" id="citizen" required>
+                        <input type="radio" name="role" value="citizen" id="citizen" required>
                         <label for="citizen" class="radio-label">CIDADÃO</label>
-                        <input type="radio" th:field="*{perfil}" value="admin" id="admin" required>
+                        
+                        <input type="radio" name="role" value="admin" id="admin" required>
                         <label for="admin" class="radio-label">ADMIN</label>
                     </div>
                 </div>
                 <div class="input-box">
                     <label>Senha</label>
-                    <input type="password" th:field="*{senha}" required>
+                    <input type="password" name="password" required>
                 </div>
                 <button type="submit" class="btn-entrar">CADASTRAR</button>
             </form>
