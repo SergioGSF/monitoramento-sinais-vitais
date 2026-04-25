@@ -14,18 +14,27 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/cadastro", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers(
+                    "/login",
+                    "/cadastro",
+                    "/events",
+                    "/compra/**",
+                    "/confirmacao",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login
                 .loginPage("/login")
-                .usernameParameter("email") // Isso deve ser igual ao name="email" no HTML
+                .usernameParameter("email")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/home", true)
                 .permitAll()
             )
             .logout(logout -> logout.logoutSuccessUrl("/login"));
-        
+
         return http.build();
     }
 
