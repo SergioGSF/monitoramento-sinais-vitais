@@ -197,7 +197,7 @@ Antes de começar, você precisará ter instalado em sua máquina:
 
 1. **Clone o repositório e acesse a pasta:**
 ```bash
-git clone https://github.com
+git clone https://github.com/SergioGSF/programa-cultural-digital
 cd programa-cultural-digital/arenapernambuco
 ```
 
