@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/arena.css}">
+    <style>
+        .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon { background-color: #FF5722; color: white; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-weight: 900; font-size: 20px; }
+        .logo-text { display: flex; flex-direction: column; color: #333; }
+        .logo-title { font-weight: bold; font-size: 16px; line-height: 1; }
+        .logo-subtitle { font-size: 10px; color: #888; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-container">
+            <div class="logo-icon">A</div>
+            <div class="logo-text">
+                <span class="logo-title">Arena Pernambuco</span>
+                <span class="logo-subtitle">Eventos e Entretenimento</span>
+            </div>
+        </div>
+        <div style="display: flex; gap: 25px; align-items: center;">
+            <a th:href="@{/events}" style="text-decoration: none; color: #666; font-size: 14px;">Eventos</a>
+            <button style="background: #FF5722; color: white; border: none; padding: 10px 25px; border-radius: 8px; font-weight: bold; cursor: pointer;">Entrar</button>
+        </div>
+    </nav>
+    
+    <div class="hero-bar">
+        <a th:href="@{/events}" class="btn-voltar">&larr; Voltar para eventos</a>
+    </div>
+
+    <div class="main-container" th:if="">
+        <div class="event-card">
+            <img th:src="" style="width: 100%; height: 350px; object-fit: cover; display: block;">
+            <div class="event-info">
+                <span class="badge" th:text="">Categoria</span>
+                <h1 style="margin: 15px 0 5px;" th:text="">Título</h1>
+                <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Arena Pernambuco • Recife</p>
+                
+                <div class="details-grid">
+                    <div class="detail-item"><strong>Data</strong><br><small th:text=""></small></div>
+                    <div class="detail-item"><strong>Horário</strong><br><small th:text=""></small></div>
+                </div>
+                
+                <h3>Sobre o evento</h3>
+                <p style="color: #666; line-height: 1.6;" th:text="">Descrição...</p>
+            </div>
+        </div>
+
+        <aside>
+            <div class="checkout-card">
+                <h3 style="margin-top: 0;">Resumo da compra</h3>
+                <span class="price" th:text="'R$ ' + "></span>
+                
+                <div style="margin-top: 20px; font-size: 14px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>Ingresso Inteira</span>
+                        <span th:text="'R$ ' + "></span>
+                    </div>
+                    <hr style="border: 0; border-top: 1px solid #EEE; margin: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px;">
+                        <span>Total</span>
+                        <span style="color: #FF5722;" th:text="'R$ ' + "></span>
+                    </div>
+                </div>
+                <button class="btn-pagamento">Confirmar Pagamento</button>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

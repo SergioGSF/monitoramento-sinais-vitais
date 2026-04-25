@@ -100,7 +100,7 @@
             <p th:text="${#temporals.format(event.date, 'dd/MM/yyyy - HH:mm')}"></p>
             <div class="card-footer">
                 <strong th:text="'R$ ' + ${#numbers.formatDecimal(event.fullPrice, 1, 2, 'DEFAULT')}"></strong>
-                <button>Ver detalhes</button>
+                <a th:href="@{/compra/{id}(id=${event.id})}" style="text-decoration: none;"><button style="cursor: pointer;">Ver detalhes</button></a>
             </div>
         </div>
     </div>
