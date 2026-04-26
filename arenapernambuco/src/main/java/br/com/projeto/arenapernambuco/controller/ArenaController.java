@@ -1,11 +1,14 @@
 package br.com.projeto.arenapernambuco.controller;
 
+import br.com.projeto.arenapernambuco.model.Compra;
+import br.com.projeto.arenapernambuco.repository.CompraRepository;
 import br.com.projeto.arenapernambuco.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -13,6 +16,9 @@ public class ArenaController {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private CompraRepository compraRepository;
 
     @GetMapping("/events")
     public String listarEventos(
@@ -51,6 +57,19 @@ public class ArenaController {
                     return "compra";
                 })
                 .orElse("redirect:/events");
+    }
+
+    @GetMapping("/pagamento")
+    public String pagamento(Model model) {
+        var evento = eventRepository.findAll().stream().findFirst().orElse(null);
+        model.addAttribute("evento", evento);
+        return "pagamento";
+    }
+
+    @PostMapping("/finalizar-compra")
+    public String finalizarCompra(Compra compra) {
+        compraRepository.save(compra);
+        return "redirect:/confirmacao";
     }
 
     @GetMapping("/confirmacao")

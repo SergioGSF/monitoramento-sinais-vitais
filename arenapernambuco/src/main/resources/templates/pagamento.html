@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Finalizar Compra</title>
+    <link rel="stylesheet" th:href="@{/css/pagamento.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo-container">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">
+            <span class="logo-title">Arena Pernambuco</span>
+            <span class="logo-subtitle">Eventos e Entretenimento</span>
+        </div>
+    </div>
+
+    <div style="display: flex; gap: 25px; align-items: center;">
+        <a th:href="@{/events}" style="text-decoration: none; color: #666; font-size: 14px;">Eventos</a>
+        <a th:href="@{/login}">
+            <button class="btn-login">Entrar</button>
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <h1>Finalizar compra</h1>
+
+    <div class="main-grid">
+
+        <div class="left-column">
+
+            <form th:action="@{/finalizar-compra}" method="post">
+
+                <div class="card">
+                    <h3>Informações pessoais</h3>
+
+                    <label>Nome completo *</label>
+                    <input type="text" name="nome" placeholder="Seu nome completo" required>
+
+                    <label>E-mail *</label>
+                    <input type="email" name="email" placeholder="seu@email.com" required>
+
+                    <div class="row">
+                        <div>
+                            <label>CPF *</label>
+                            <input type="text" name="cpf" placeholder="000.000.000-00" required>
+                        </div>
+
+                        <div>
+                            <label>Telefone *</label>
+                            <input type="text" name="telefone" placeholder="(81) 99999-9999" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Pagamento</h3>
+
+                    <label>Número do cartão *</label>
+                    <input type="text" name="numeroCartao" placeholder="0000 0000 0000 0000" required>
+
+                    <label>Nome no cartão *</label>
+                    <input type="text" name="nomeCartao" placeholder="Como está no cartão" required>
+
+                    <div class="row">
+                        <div>
+                            <label>Validade *</label>
+                            <input type="text" name="validade" placeholder="MM/AA" required>
+                        </div>
+
+                        <div>
+                            <label>CVV *</label>
+                            <input type="text" name="cvv" placeholder="000" required>
+                        </div>
+                    </div>
+
+                    <p class="secure-text">
+                        Pagamento 100% seguro e criptografado
+                    </p>
+                </div>
+
+                <button type="submit" class="btn-finalizar">
+                    Finalizar compra
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="right-column">
+
+            <div class="summary-card">
+                <h3>Resumo do pedido</h3>
+
+                <div class="event-summary">
+                    <img th:src="${evento.imageUrl}" alt="Evento">
+
+                    <div>
+                        <strong th:text="${evento.title}"></strong>
+                        <p th:text="${#temporals.format(evento.date, 'dd/MM/yyyy')}"></p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="summary-line">
+                    <span>Quantidade</span>
+                    <span>1 ingresso</span>
+                </div>
+
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice,1,2)}"></span>
+                </div>
+
+                <div class="summary-line">
+                    <span>Taxa de serviço</span>
+                    <span>R$ 15,00</span>
+                </div>
+
+                <hr>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>R$ 165,00</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

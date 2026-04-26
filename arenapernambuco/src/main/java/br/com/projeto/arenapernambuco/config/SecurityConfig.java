@@ -19,7 +19,9 @@ public class SecurityConfig {
                     "/cadastro",
                     "/events",
                     "/compra/**",
+                    "/pagamento",
                     "/confirmacao",
+                    "/finalizar-compra",
                     "/css/**",
                     "/js/**",
                     "/images/**"
@@ -33,7 +35,8 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/home", true)
                 .permitAll()
             )
-            .logout(logout -> logout.logoutSuccessUrl("/login"));
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login"));
 
         return http.build();
     }
