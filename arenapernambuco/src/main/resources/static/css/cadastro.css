@@ -1,0 +1,129 @@
+/* Estrutura de Layout */
+.wrapper {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 60px);
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    overflow-y: auto;
+    padding: 40px 20px;
+}
+
+/* Card de Cadastro */
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #dee2e6;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.auth-header h2 {
+    color: #222;
+    margin-bottom: 8px;
+}
+
+/* Inputs */
+.input-box {
+    margin-bottom: 18px;
+}
+
+.input-box label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.input-box input[type="text"],
+.input-box input[type="email"],
+.input-box input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.input-box input:focus {
+    border-color: #FF5722;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
+}
+
+/* Grupo de Rádio Estilizado */
+.radio-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.radio-group input[type="radio"] {
+    display: none; /* Esconde a bolinha padrão */
+}
+
+.radio-label {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.radio-group input[type="radio"]:checked + .radio-label {
+    background-color: #FF5722;
+    color: white;
+    border-color: #FF5722;
+}
+
+/* Botão */
+.btn-entrar {
+    width: 100%;
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-entrar:hover {
+    background-color: #E64A19;
+}
+
+.auth-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.auth-footer a {
+    color: #FF5722;
+    text-decoration: none;
+    font-weight: bold;
+}

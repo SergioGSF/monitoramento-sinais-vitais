@@ -1,64 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arena Pernambuco - Login</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-    <header class="top-navbar">
-        <div class="logo-area">
-            <span class="logo-icon">AP</span>
-            <span>Arena Pernambuco</span>
+<header class="navbar">
+    <div class="logo-container">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">
+            <span class="logo-title">Arena Pernambuco</span>
+            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Eventos e Entretenimento</span>
         </div>
-    </header>
-
-    <div class="wrapper">
-        <aside class="sidebar">
-            <ul class="sidebar-menu">
-                <li class="active">
-                    <i class="fas fa-lock"></i> Login
-                </li>
-                <li>
-                    <a th:href="@{/cadastro}">
-                        <i class="fas fa-user-plus"></i> Cadastro
-                    </a>
-                </li>
-                <li>
-                    <i class="fas fa-info-circle"></i> Sobre
-                </li>
-            </ul>
-        </aside>
-
-        <main class="main-content">
-            <div class="login-card">
-                <div class="card-header">
-                    <h2>Identificação</h2>
-                    <p>Acesse o painel do sistema</p>
-                </div>
-
-                <form th:action="@{/login}" method="post" class="login-form">
-                    <div class="input-box">
-                        <label>E-mail</label>
-                        <input type="email" name="email" placeholder="seu@email.com" required>
-                    </div>
-
-                    <div class="input-box">
-                        <label>Senha</label>
-                        <input type="password" name="password" placeholder="Sua senha" required>
-                    </div>
-
-                    <button type="submit" class="btn-entrar">ENTRAR NO SISTEMA</button>
-                </form>
-
-                <div class="card-footer">
-                    Não possui conta? <a th:href="@{/cadastro}">Cadastre-se</a>
-                </div>
-            </div>
-        </main>
     </div>
+</header>
+
+    <main class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>Identificação</h2>
+                <p>Acede ao painel do sistema</p>
+            </div>
+
+            <form th:action="@{/login}" method="post">
+
+                <div th:if="${param.error}" style="color: #f44336; font-size: 13px; text-align: center; margin-bottom: 15px; font-weight: 600;">
+                    E-mail ou senha incorretos.
+                </div>
+
+                <div class="input-box">
+                    <label>E-mail</label>
+                    <input type="email" name="email" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="input-box">
+                    <label>Senha</label>
+                    <input type="password" name="password" placeholder="Sua senha" required>
+                </div>
+
+                <button type="submit" class="btn-entrar">ENTRAR NO SISTEMA</button>
+            </form>
+
+            <div class="auth-footer">
+                Não possui conta? <a th:href="@{/cadastro}">Cadastra-te</a>
+            </div>
+        </div>
+    </main>
+</div>
+
 </body>
 </html>

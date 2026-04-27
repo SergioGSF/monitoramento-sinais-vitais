@@ -1,0 +1,98 @@
+/* Container principal que centraliza o card */
+.auth-container {
+    background: var(--fundo);
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* O Card branco */
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid var(--borda);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-header h2 {
+    font-size: 24px;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+/* Formatação da div que engloba label e input */
+.input-box {
+    margin-bottom: 20px;
+}
+
+.input-box label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    text-transform: none; /* Garante que não fique tudo em maiúsculo se não desejar */
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    background: #fafafa;
+    font-size: 15px;
+    transition: 0.3s;
+    box-sizing: border-box; /* Importante para o padding não quebrar a largura */
+}
+
+.input-box input:focus {
+    border-color: var(--laranja);
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.1);
+}
+
+/* Botão de Entrar */
+.btn-entrar {
+    width: 100%;
+    background: var(--laranja);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-entrar:hover {
+    background: var(--laranja-hover);
+    transform: translateY(-1px);
+}
+
+.auth-footer {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.auth-footer a {
+    color: var(--laranja);
+    text-decoration: none;
+    font-weight: bold;
+}

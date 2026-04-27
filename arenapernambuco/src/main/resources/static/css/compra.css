@@ -1,0 +1,145 @@
+.hero-bar {
+    background: var(--laranja-gradiente);
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.container-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.purchase-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 30px;
+}
+
+.details-card {
+    margin-top: 30px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.category-tag {
+    color: var(--laranja);
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.details-card h1 {
+    font-size: 32px;
+    margin: 10px 0 20px;
+}
+
+.info-list p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.description {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.summary-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 20px;
+}
+
+.price-section .price {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--laranja);
+    margin: 5px 0 20px;
+}
+
+.qty-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.fees {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.fee-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 15px;
+    color: var(--laranja);
+}
+
+.btn-pagamento {
+    width: 100%;
+    background: var(--laranja);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: 0.3s;
+}
+
+.btn-pagamento:hover {
+    background: var(--laranja-hover);
+}
+
+@media (max-width: 992px) {
+    .purchase-grid {
+        grid-template-columns: 1fr;
+    }
+    .checkout-sidebar {
+        position: static;
+    }
+}

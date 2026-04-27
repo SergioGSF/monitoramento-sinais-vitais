@@ -1,70 +1,69 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Arena Pernambuco - Cadastro</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Arena Pernambuco</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/cadastro.css}"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="top-navbar">
-        <div class="logo-area">
-            <span class="logo-icon">AP</span>
-            <span>Arena Pernambuco Digital</span>
+
+<header class="navbar">
+    <div class="logo-container">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">
+            <span class="logo-title">Arena Pernambuco</span>
+            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Eventos e Entretenimento</span>
         </div>
     </div>
+</header>
 
-    <div class="wrapper">
-        <aside class="sidebar">
-            <ul class="sidebar-menu">
-                <li>
-                    <a th:href="@{/login.html}">
-                    <i class="fas fa-lock"></i> Login
-                    </a>
-                </li>
-                <li  class="active">
-                    <a th:href="@{/cadastro.html}">
-                        <i class="fas fa-user-plus"></i> Cadastro
-                    </a>
-                </li>
-                <li>
-                    <i class="fas fa-info-circle"></i> Sobre
-                </li>
-            </ul>
-        </aside>
+<div class="wrapper">
+    <main class="main-content">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h2>Crie sua conta</h2>
+                <p>Preencha os dados para se cadastrar</p>
+            </div>
 
-    <div class="main-content">
-        <div class="login-card">
-            <form th:action="@{/cadastro}" method="post" class="login-form">
+            <form th:action="@{/cadastro}" method="post">
                 <div class="input-box">
                     <label>Nome Completo</label>
-                    <input type="text" name="name" required>
+                    <input type="text" name="name" placeholder="Seu nome" required>
                 </div>
+
                 <div class="input-box">
                     <label>E-mail</label>
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" placeholder="email@exemplo.com" required>
                 </div>
+
                 <div class="input-box">
                     <label>Tipo de Acesso</label>
                     <div class="radio-group">
-                        <input type="radio" name="role" value="citizen" id="citizen" required>
+                        <input type="radio" name="role" value="citizen" id="citizen" required checked>
                         <label for="citizen" class="radio-label">CIDADÃO</label>
-                        
+
                         <input type="radio" name="role" value="admin" id="admin" required>
                         <label for="admin" class="radio-label">ADMIN</label>
                     </div>
                 </div>
+
                 <div class="input-box">
                     <label>Senha</label>
-                    <input type="password" name="password" required>
+                    <input type="password" name="password" placeholder="Sua senha" required>
                 </div>
-                <button type="submit" class="btn-entrar">CADASTRAR</button>
+
+                <button type="submit" class="btn-entrar">CADASTRAR NO SISTEMA</button>
             </form>
-            <div class="card-footer">
+
+            <div class="auth-footer">
                 Já é cadastrado? <a th:href="@{/login}">Entrar</a>
             </div>
         </div>
-    </div>
+    </main>
+</div>
+
 </body>
 </html>

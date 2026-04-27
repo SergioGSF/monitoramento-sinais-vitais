@@ -1,139 +1,84 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Finalizar Compra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - Arena Pernambuco</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/pagamento.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<nav class="navbar">
+<header class="navbar">
     <div class="logo-container">
         <div class="logo-icon">A</div>
         <div class="logo-text">
             <span class="logo-title">Arena Pernambuco</span>
-            <span class="logo-subtitle">Eventos e Entretenimento</span>
+            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Eventos e Entretenimento</span>
         </div>
     </div>
-
-    <div style="display: flex; gap: 25px; align-items: center;">
+    <nav class="nav-links" style="display: flex; gap: 25px; align-items: center;">
         <a th:href="@{/events}" style="text-decoration: none; color: #666; font-size: 14px;">Eventos</a>
-        <a th:href="@{/login}">
-            <button class="btn-login">Entrar</button>
-        </a>
-    </div>
-</nav>
+        <a th:href="@{/meus-ingressos}" style="text-decoration: none; color: #666; font-size: 14px;">Meus Ingressos</a>
+        <a th:href="@{/login}" class="btn-primary" style="padding: 8px 20px;">Entrar</a>
+    </nav>
+</header>
 
-<div class="container">
-
-    <h1>Finalizar compra</h1>
+<main class="container" style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
+    <h1 style="margin-bottom: 30px; font-size: 28px;">Finalizar compra</h1>
 
     <div class="main-grid">
-
         <div class="left-column">
-
             <form th:action="@{/finalizar-compra}" method="post">
 
-                <div class="card">
-                    <h3>Informações pessoais</h3>
-
-                    <label>Nome completo *</label>
-                    <input type="text" name="nome" placeholder="Seu nome completo" required>
-
-                    <label>E-mail *</label>
-                    <input type="email" name="email" placeholder="seu@email.com" required>
-
+                <section class="checkout-card">
+                    <h3>Informações de Pagamento</h3>
+                    <div class="input-group">
+                        <label>Número do Cartão</label>
+                        <input type="text" placeholder="0000 0000 0000 0000" required>
+                    </div>
                     <div class="row">
-                        <div>
-                            <label>CPF *</label>
-                            <input type="text" name="cpf" placeholder="000.000.000-00" required>
+                        <div class="input-group">
+                            <label>Validade</label>
+                            <input type="text" placeholder="MM/AA" required>
                         </div>
-
-                        <div>
-                            <label>Telefone *</label>
-                            <input type="text" name="telefone" placeholder="(81) 99999-9999" required>
+                        <div class="input-group">
+                            <label>CVV</label>
+                            <input type="text" placeholder="123" required>
                         </div>
                     </div>
-                </div>
-
-                <div class="card">
-                    <h3>Pagamento</h3>
-
-                    <label>Número do cartão *</label>
-                    <input type="text" name="numeroCartao" placeholder="0000 0000 0000 0000" required>
-
-                    <label>Nome no cartão *</label>
-                    <input type="text" name="nomeCartao" placeholder="Como está no cartão" required>
-
-                    <div class="row">
-                        <div>
-                            <label>Validade *</label>
-                            <input type="text" name="validade" placeholder="MM/AA" required>
-                        </div>
-
-                        <div>
-                            <label>CVV *</label>
-                            <input type="text" name="cvv" placeholder="000" required>
-                        </div>
+                    <div class="input-group">
+                        <label>Nome no Cartão</label>
+                        <input type="text" placeholder="Como impresso no cartão" required>
                     </div>
+                </section>
 
-                    <p class="secure-text">
-                        Pagamento 100% seguro e criptografado
-                    </p>
-                </div>
-
-                <button type="submit" class="btn-finalizar">
-                    Finalizar compra
-                </button>
-
+                <button type="submit" class="btn-finalizar">Confirmar e Pagar</button>
             </form>
-
         </div>
 
-        <div class="right-column">
-
+        <aside class="right-column">
             <div class="summary-card">
                 <h3>Resumo do pedido</h3>
-
-                <div class="event-summary">
-                    <img th:src="${evento.imageUrl}" alt="Evento">
-
+                <div class="event-mini-card" style="display: flex; gap: 15px; margin: 20px 0; align-items: center;">
+                    <img th:src="${evento.imageUrl}" style="width: 80px; height: 60px; border-radius: 6px; object-fit: cover;">
                     <div>
-                        <strong th:text="${evento.title}"></strong>
-                        <p th:text="${#temporals.format(evento.date, 'dd/MM/yyyy')}"></p>
+                        <strong th:text="${evento.title}" style="display: block; font-size: 14px;"></strong>
+                        <span th:text="${#temporals.format(evento.date, 'dd/MM/yyyy')}" style="font-size: 12px; color: #666;"></span>
                     </div>
                 </div>
 
-                <hr>
-
-                <div class="summary-line">
-                    <span>Quantidade</span>
-                    <span>1 ingresso</span>
-                </div>
-
-                <div class="summary-line">
-                    <span>Subtotal</span>
-                    <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice,1,2)}"></span>
-                </div>
-
-                <div class="summary-line">
-                    <span>Taxa de serviço</span>
-                    <span>R$ 15,00</span>
-                </div>
-
-                <hr>
-
-                <div class="summary-total">
-                    <span>Total</span>
-                    <span>R$ 165,00</span>
+                <div class="summary-details">
+                    <div class="line"><span>1x Ingresso</span> <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice,1,2)}"></span></div>
+                    <div class="line"><span>Taxa</span> <span>R$ 15,00</span></div>
+                    <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
+                    <div class="line total"><span>Total</span> <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice + 15,1,2)}"></span></div>
                 </div>
             </div>
-
-        </div>
-
+        </aside>
     </div>
-
-</div>
+</main>
 
 </body>
 </html>

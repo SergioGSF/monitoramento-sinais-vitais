@@ -2,133 +2,80 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Arena Pernambuco</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arena Pernambuco - Descubra Eventos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/events.css}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- HEADER -->
-<header class="header">
-    <div class="logo">
-        <div class="logo-box">A</div>
-        <div>
-            <h1>Arena Pernambuco</h1>
-            <span>Eventos e Entretenimento</span>
+<header class="navbar">
+    <div class="logo-container">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">
+            <span class="logo-title" style="font-weight: bold; font-size: 15px;">Arena Pernambuco</span>
+            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Eventos e Entretenimento</span>
         </div>
     </div>
 
-    <nav>
-        <a th:href="@{/events}">Eventos</a>
-        <a th:href="@{/login}" class="btn">Entrar</a>
+    <nav class="nav-links" style="display: flex; gap: 25px; align-items: center;">
+        <a th:href="@{/events}" style="text-decoration: none; color: var(--laranja); font-weight: bold;">Eventos</a>
+        <a th:href="@{/meus-ingressos}" style="text-decoration: none; color: #666; font-size: 14px;">Meus Ingressos</a>
+        <a th:href="@{/login}" class="btn-primary" style="padding: 8px 20px;">Entrar</a>
     </nav>
-
 </header>
 
-<!-- HERO -->
 <section class="hero">
     <h2>Descubra os melhores eventos</h2>
-    <p>Na Arena Pernambuco, o maior espaço de entretenimento do Nordeste</p>
+    <p>O maior espaço de entretenimento do Nordeste espera por você</p>
 
     <form th:action="@{/events}" method="get" class="search-box">
-        <input type="text" name="q" placeholder="Buscar eventos..." th:value="${q}">
-        <button type="submit">Buscar</button>
+        <input type="text" name="q" placeholder="Buscar eventos por nome ou artista..." th:value="${q}">
+        <button type="submit" class="btn-search">Buscar</button>
     </form>
-
 </section>
 
-<!-- FILTROS -->
-<section class="filters">
-    <div class="tags">
-        <a th:href="@{/events}"
-           th:classappend="${selectedCategory == null ? 'active' : ''}"
-           style="background: #eee; padding: 8px 14px; border-radius: 20px; margin-right: 8px; cursor: pointer; text-decoration: none; display: inline-block;"
-           onclick="this.classList.add('active')">Todos</a>
+<div class="container-main" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    <section class="filters-area">
+        <div class="tags">
+            <a th:href="@{/events}" th:classappend="${selectedCategory == null ? 'active' : ''}">Todos</a>
+            <a th:href="@{/events(category='Show')}" th:classappend="${selectedCategory == 'Show' ? 'active' : ''}">Show</a>
+            <a th:href="@{/events(category='Esporte')}" th:classappend="${selectedCategory == 'Esporte' ? 'active' : ''}">Esporte</a>
+            <a th:href="@{/events(category='Teatro')}" th:classappend="${selectedCategory == 'Teatro' ? 'active' : ''}">Teatro</a>
+        </div>
 
-        <a th:href="@{/events(category='Show')}"
-           th:classappend="${selectedCategory == 'Show' ? 'active' : ''}"
-           style="background: #eee; padding: 8px 14px; border-radius: 20px; margin-right: 8px; cursor: pointer; text-decoration: none; display: inline-block;">Show</a>
+        <div class="select-box">
+            <select onchange="window.location.href=`/events?sort=${this.value}`">
+                <option value="date" th:selected="${sort == 'date'}">Data mais próxima</option>
+                <option value="price_asc" th:selected="${sort == 'price_asc'}">Menor preço</option>
+            </select>
+        </div>
+    </section>
 
-        <a th:href="@{/events(category='Festival')}"
-           th:classappend="${selectedCategory == 'Festival' ? 'active' : ''}"
-           style="background: #eee; padding: 8px 14px; border-radius: 20px; margin-right: 8px; cursor: pointer; text-decoration: none; display: inline-block;">Festival</a>
+    <p class="results-text" th:text="${events != null ? events.size() + ' eventos encontrados' : '0 eventos encontrados'}"></p>
 
-        <a th:href="@{/events(category='Esporte')}"
-           th:classappend="${selectedCategory == 'Esporte' ? 'active' : ''}"
-           style="background: #eee; padding: 8px 14px; border-radius: 20px; margin-right: 8px; cursor: pointer; text-decoration: none; display: inline-block;">Esporte</a>
-
-        <a th:href="@{/events(category='Comédia')}"
-           th:classappend="${selectedCategory == 'Comédia' ? 'active' : ''}"
-           style="background: #eee; padding: 8px 14px; border-radius: 20px; margin-right: 8px; cursor: pointer; text-decoration: none; display: inline-block;">Comédia</a>
-
-        <a th:href="@{/events(category='Cultural')}"
-           th:classappend="${selectedCategory == 'Cultural' ? 'active' : ''}"
-           style="background: #eee; padding: 8px 14px; border-radius: 20px; margin-right: 8px; cursor: pointer; text-decoration: none; display: inline-block;">Cultural</a>
-
-        <a th:href="@{/events(category='Tecnologia')}"
-           th:classappend="${selectedCategory == 'Tecnologia' ? 'active' : ''}"
-           style="background: #eee; padding: 8px 14px; border-radius: 20px; margin-right: 8px; cursor: pointer; text-decoration: none; display: inline-block;">Tecnologia</a>
-
-        <a th:href="@{/events(category='Teatro')}"
-           th:classappend="${selectedCategory == 'Teatro' ? 'active' : ''}"
-           style="background: #eee; padding: 8px 14px; border-radius: 20px; margin-right: 8px; cursor: pointer; text-decoration: none; display: inline-block;">Teatro</a>
-    </div>
-
-    <div class="select-box">
-        <span class="icon">▾</span>
-        <select onchange="window.location.href=`/events?sort=${this.value}`">
-            <option value="date" th:selected="${sort == 'date'}">Data mais próxima</option>
-            <option value="price_asc" th:selected="${sort == 'price_asc'}">Menor preço</option>
-            <option value="price_desc" th:selected="${sort == 'price_desc'}">Maior preço</option>
-        </select>
-    </div>
-
-</section>
-
-
-<p class="results" th:text="${events != null ? events.size() + ' eventos encontrados' : '0 eventos encontrados'}"></p>
-
-
-<!-- GRID -->
-<section class="grid" th:if="${events != null && events.size() > 0}">
-    <div class="card" th:each="event : ${events}">
-        <img th:src="${event.imageUrl}" alt="Event Image" />
-        <span class="tag" th:text="${event.category.name}"></span>
-        <div class="content">
-            <h3 th:text="${event.title}"></h3>
-            <p th:text="${#temporals.format(event.date, 'dd/MM/yyyy - HH:mm')}"></p>
-            <div class="card-footer">
-                <strong th:text="'R$ ' + ${#numbers.formatDecimal(event.fullPrice, 1, 2, 'DEFAULT')}"></strong>
-                <a th:href="@{/compra/{id}(id=${event.id})}" style="text-decoration: none;"><button style="cursor: pointer;">Ver detalhes</button></a>
+    <section class="grid" th:if="${events != null && events.size() > 0}">
+        <div class="card" th:each="event : ${events}">
+            <div class="card-img-wrapper">
+                <img th:src="${event.imageUrl}" alt="Imagem do Evento">
+                <span class="tag-badge" th:text="${event.category.name}"></span>
+            </div>
+            <div class="card-content">
+                <h3 th:text="${event.title}"></h3>
+                <p class="event-date">📅 <span th:text="${#temporals.format(event.date, 'dd/MM/yyyy - HH:mm')}"></span></p>
+                <div class="card-footer">
+                    <strong class="price" th:text="'R$ ' + ${#numbers.formatDecimal(event.fullPrice, 1, 2, 'DEFAULT')}"></strong>
+                    <a th:href="@{/compra/{id}(id=${event.id})}" class="btn-details">Ver detalhes</a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section th:if="${events == null || events.size() == 0}" style="padding: 40px; text-align: center;">
-    <p style="font-size: 18px; color: #666;">Nenhum evento encontrado.</p>
-</section>
-
-
-<!-- FOOTER -->
-<footer class="footer">
-    <div>
-        <h3>Arena Pernambuco</h3>
-        <p>A maior arena multiuso do Nordeste.</p>
-    </div>
-
-    <div>
-        <h3>Contato</h3>
-        <p>Av. Deus é Fiel, 1 - PE</p>
-        <p>Tel: (81) 3184-4000</p>
-    </div>
-
-    <div>
-        <h3>Redes Sociais</h3>
-        <p>@arenapernambuco</p>
-    </div>
-</footer>
+    <section th:if="${events == null || events.size() == 0}" class="empty-state">
+        <p>Nenhum evento encontrado para esta busca.</p>
+    </section>
+</div>
 
 </body>
 </html>
