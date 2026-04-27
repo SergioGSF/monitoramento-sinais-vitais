@@ -25,6 +25,10 @@ public class Compra {
 
     private String cvv;
 
+    @ManyToOne
+    @JoinColumn(name = "evento_id")
+    private Event event;
+
     public Long getId() {
         return id;
     }
@@ -91,5 +95,13 @@ public class Compra {
 
     public void setCvv(String cvv) {
         this.cvv = cvv;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

@@ -18,10 +18,6 @@ public class SecurityConfig {
                     "/login",
                     "/cadastro",
                     "/events",
-                    "/compra/**",
-                    "/pagamento",
-                    "/confirmacao",
-                    "/finalizar-compra",
                     "/css/**",
                     "/js/**",
                     "/images/**"
@@ -32,11 +28,11 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/home", true)
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutSuccessUrl("/login"));
+                .logoutSuccessUrl("/login")
+            );
 
         return http.build();
     }
