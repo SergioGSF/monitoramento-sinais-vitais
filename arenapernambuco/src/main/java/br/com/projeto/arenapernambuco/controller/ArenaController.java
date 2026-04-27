@@ -59,15 +59,23 @@ public class ArenaController {
                 .orElse("redirect:/events");
     }
 
-    @GetMapping("/pagamento")
-    public String pagamento(Model model) {
-        var evento = eventRepository.findAll().stream().findFirst().orElse(null);
-        model.addAttribute("evento", evento);
-        return "pagamento";
+    @GetMapping("/pagamento/{id}")
+    public String pagamento(@PathVariable Long id, Model model) {
+        return eventRepository.findById(id)
+                .map(evento -> {
+                    model.addAttribute("evento", evento);
+                    return "pagamento";
+                })
+                .orElse("redirect:/events");
     }
 
     @PostMapping("/finalizar-compra")
-    public String finalizarCompra(Compra compra) {
+    public String finalizarCompra(
+            Compra compra,
+            @RequestParam Long eventId
+    ) {
+        var evento = eventRepository.findById(eventId).orElse(null);
+        compra.setEvent(evento);
         compraRepository.save(compra);
         return "redirect:/confirmacao";
     }

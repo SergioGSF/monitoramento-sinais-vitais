@@ -15,19 +15,33 @@
         <div class="logo-icon">A</div>
         <div class="logo-text">
             <span class="logo-title">Arena Pernambuco</span>
-            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Eventos e Entretenimento</span>
+            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">
+                Eventos e Entretenimento
+            </span>
         </div>
     </div>
+
     <nav class="nav-links" style="display: flex; gap: 25px; align-items: center;">
-        <a th:href="@{/events}" style="text-decoration: none; color: #666; font-size: 14px;">Eventos</a>
-        <a th:href="@{/meus-ingressos}" style="text-decoration: none; color: #666; font-size: 14px;">Meus Ingressos</a>
-        <a th:href="@{/login}" class="btn-primary" style="padding: 8px 20px;">Entrar</a>
+        <a th:href="@{/events}" style="text-decoration: none; color: #666; font-size: 14px;">
+            Eventos
+        </a>
+
+        <a th:href="@{/meus-ingressos}" style="text-decoration: none; color: #666; font-size: 14px;">
+            Meus Ingressos
+        </a>
+
+        <a th:href="@{/login}" class="btn-primary" style="padding: 8px 20px;">
+            Entrar
+        </a>
     </nav>
 </header>
 
 <div class="hero-bar">
     <div class="container-width">
-        <a th:href="@{/events}" class="btn-voltar" style="text-decoration: none; color: white; font-weight: 600;">&larr; Voltar para eventos</a>
+        <a th:href="@{/events}" class="btn-voltar"
+           style="text-decoration: none; color: white; font-weight: 600;">
+            Voltar para eventos
+        </a>
     </div>
 </div>
 
@@ -36,32 +50,54 @@
 
         <section class="event-info">
             <div class="image-showcase">
-                <img th:src="${evento.imageUrl}" alt="Banner do Evento" style="width: 100%; border-radius: 12px;">
+                <img th:src="${evento.imageUrl}"
+                     alt="Banner do Evento"
+                     style="width: 100%; border-radius: 12px;">
             </div>
+
             <div class="details-card">
-                <span class="category-tag" th:text="${evento.category.name}"></span>
+                <span class="category-tag"
+                      th:text="${evento.category.name}">
+                </span>
+
                 <h1 th:text="${evento.title}"></h1>
+
                 <div class="info-list">
-                    <p>📅 <span th:text="${#temporals.format(evento.date, 'dd/MM/yyyy - HH:mm')}"></span></p>
-                    <p>📍 Arena Pernambuco - São Lourenço da Mata, PE</p>
+                    <p>
+                        Data:
+                        <span th:text="${#temporals.format(evento.date, 'dd/MM/yyyy - HH:mm')}"></span>
+                    </p>
+
+                    <p>
+                        Local: Arena Pernambuco - São Lourenço da Mata, PE
+                    </p>
                 </div>
+
                 <div class="description">
                     <h3>Sobre o evento</h3>
-                    <p>Garanta seu lugar no maior espetáculo da temporada com conforto e segurança na Arena Pernambuco.</p>
+                    <p>
+                        Garanta seu lugar no maior espetáculo da temporada com conforto e segurança na Arena Pernambuco.
+                    </p>
                 </div>
             </div>
         </section>
 
         <aside class="checkout-sidebar">
             <div class="summary-card">
+
                 <h3>Resumo da Reserva</h3>
+
                 <div class="price-section">
                     <span class="label">Valor unitário</span>
-                    <div class="price" th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice, 1, 2, 'DEFAULT')}"></div>
+
+                    <div class="price"
+                         th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice, 1, 2, 'DEFAULT')}">
+                    </div>
                 </div>
 
                 <div class="qty-selector">
                     <span>Quantidade</span>
+
                     <div class="controls">
                         <button class="qty-btn">-</button>
                         <span>1</span>
@@ -70,23 +106,37 @@
                 </div>
 
                 <div class="fees">
+
                     <div class="fee-row">
                         <span>Subtotal</span>
-                        <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice, 1, 2, 'DEFAULT')}"></span>
+
+                        <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice, 1, 2, 'DEFAULT')}">
+                        </span>
                     </div>
+
                     <div class="fee-row">
                         <span>Taxa de conveniência</span>
                         <span>R$ 15,00</span>
                     </div>
+
                     <div class="total-row">
                         <span>Total</span>
-                        <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice + 15, 1, 2, 'DEFAULT')}"></span>
+
+                        <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice + 15, 1, 2, 'DEFAULT')}">
+                        </span>
                     </div>
+
                 </div>
 
-                <a th:href="@{/pagamento}" style="text-decoration: none;">
-                    <button class="btn-pagamento">Continuar para Pagamento</button>
+                <a th:href="@{/pagamento/{id}(id=${evento.id})}"
+                   style="text-decoration: none;">
+
+                    <button class="btn-pagamento">
+                        Continuar para Pagamento
+                    </button>
+
                 </a>
+
             </div>
         </aside>
 
