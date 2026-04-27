@@ -16,43 +16,57 @@
         <div class="logo-icon">A</div>
         <div class="logo-text">
             <span class="logo-title">Arena Pernambuco</span>
-            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Eventos e Entretenimento</span>
+            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">
+                Eventos e Entretenimento
+            </span>
         </div>
     </div>
 </header>
 
-    <main class="auth-container">
-        <div class="auth-card">
-            <div class="auth-header">
-                <h2>Identificação</h2>
-                <p>Acede ao painel do sistema</p>
-            </div>
+<main class="auth-container">
+    <div class="auth-card">
 
-            <form th:action="@{/login}" method="post">
-
-                <div th:if="${param.error}" style="color: #f44336; font-size: 13px; text-align: center; margin-bottom: 15px; font-weight: 600;">
-                    E-mail ou senha incorretos.
-                </div>
-
-                <div class="input-box">
-                    <label>E-mail</label>
-                    <input type="email" name="email" placeholder="seu@email.com" required>
-                </div>
-
-                <div class="input-box">
-                    <label>Senha</label>
-                    <input type="password" name="password" placeholder="Sua senha" required>
-                </div>
-
-                <button type="submit" class="btn-entrar">ENTRAR NO SISTEMA</button>
-            </form>
-
-            <div class="auth-footer">
-                Não possui conta? <a th:href="@{/cadastro}">Cadastra-te</a>
-            </div>
+        <div class="auth-header">
+            <h2>Identificação</h2>
+            <p>Acede ao painel do sistema</p>
         </div>
-    </main>
-</div>
+
+        <form th:action="@{/login}" method="post">
+
+            <div th:if="${param.error}" style="color: #f44336; font-size: 13px; text-align: center; margin-bottom: 15px; font-weight: 600;">
+                E-mail ou senha incorretos.
+            </div>
+
+            <div class="input-box">
+                <label>E-mail</label>
+                <input type="email" name="email" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="input-box">
+                <label>Senha</label>
+                <input type="password" name="password" placeholder="Sua senha" required>
+            </div>
+
+            <button type="submit" class="btn-entrar">
+                ENTRAR NO SISTEMA
+            </button>
+
+            <a th:href="@{/events}"
+               style="display: block; margin-top: 15px; text-align: center; text-decoration: none; font-weight: 600; color: #666;">
+                Continuar sem login
+            </a>
+
+        </form>
+
+        <div class="auth-footer">
+            Não possui conta?
+            <a th:href="@{/cadastro}">
+                Cadastra-te
+            </a>
+        </div>
+
+    </div>
+</main>
 
 </body>
 </html>
