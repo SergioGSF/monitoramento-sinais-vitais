@@ -208,7 +208,7 @@ docker-compose up -d
 
 3. **Crie o banco de dados:**
 ```bash
-docker exec -it mysql_arena mysql -u root -p1234 -e "CREATE DATABASE IF NOT EXISTS arenapernambuco;"
+docker exec -it mysql_arena mysql -u root -p1234 -e "CREATE DATABASE IF NOT EXISTS arena_pernambuco;"
 ```
 
 4. **Construa o projeto:**
