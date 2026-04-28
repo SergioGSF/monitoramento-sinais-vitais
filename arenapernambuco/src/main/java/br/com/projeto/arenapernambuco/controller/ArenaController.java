@@ -2,7 +2,7 @@ package br.com.projeto.arenapernambuco.controller;
 
 import br.com.projeto.arenapernambuco.model.Compra;
 import br.com.projeto.arenapernambuco.repository.CompraRepository;
-import br.com.projeto.arenapernambuco.repository.EventRepository;
+import br.com.projeto.arenapernambuco.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ArenaController {
 
     @Autowired
-    private EventRepository eventRepository;
+    private EventoRepository eventoRepository;
 
     @Autowired
     private CompraRepository compraRepository;
@@ -26,7 +26,7 @@ public class ArenaController {
             @RequestParam(required = false) String q,
             Model model) {
 
-        var events = eventRepository.findAll();
+        var events = eventoRepository.findAll();
 
         if (category != null && !category.isEmpty()) {
             events = events.stream()
@@ -51,7 +51,7 @@ public class ArenaController {
 
     @GetMapping("/compra/{id}")
     public String detalhesEvento(@PathVariable Long id, Model model) {
-        return eventRepository.findById(id)
+        return eventoRepository.findById(id)
                 .map(evento -> {
                     model.addAttribute("evento", evento);
                     return "compra";
@@ -61,7 +61,7 @@ public class ArenaController {
 
     @GetMapping("/pagamento/{id}")
     public String pagamento(@PathVariable Long id, Model model) {
-        return eventRepository.findById(id)
+        return eventoRepository.findById(id)
                 .map(evento -> {
                     model.addAttribute("evento", evento);
                     return "pagamento";
@@ -74,7 +74,7 @@ public class ArenaController {
             Compra compra,
             @RequestParam Long eventId
     ) {
-        var evento = eventRepository.findById(eventId).orElse(null);
+        var evento = eventoRepository.findById(eventId).orElse(null);
         compra.setEvent(evento);
         compraRepository.save(compra);
         return "redirect:/confirmacao";

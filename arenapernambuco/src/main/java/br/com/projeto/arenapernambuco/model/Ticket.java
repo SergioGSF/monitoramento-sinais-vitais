@@ -18,7 +18,7 @@ public class Ticket {
     
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
-    private Event event;
+    private Evento evento;
     
     @Column(name = "quantity_full")
     private Integer quantityFull = 0;
@@ -42,8 +42,8 @@ public class Ticket {
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
     
-    public Event getEvent() { return event; }
-    public void setEvent(Event event) { this.event = event; }
+    public Evento getEvent() { return evento; }
+    public void setEvent(Evento evento) { this.evento = evento; }
     
     public Integer getQuantityFull() { return quantityFull; }
     public void setQuantityFull(Integer quantityFull) { this.quantityFull = quantityFull; }

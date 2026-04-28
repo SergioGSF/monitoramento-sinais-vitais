@@ -1,119 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finalizar Compra - Arena Pernambuco</title>
+    <title>Pagamento - Arena Pernambuco</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/pagamento.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<main class="container">
+    <form th:action="@{/confirmacao}" method="post">
+        <input type="hidden" name="eventId" th:value="${evento.id}">
 
-<header class="navbar">
-    <div class="logo-container">
-        <div class="logo-icon">A</div>
-        <div class="logo-text">
-            <span class="logo-title">Arena Pernambuco</span>
-            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Eventos e Entretenimento</span>
-        </div>
-    </div>
-    <nav class="nav-links" style="display: flex; gap: 25px; align-items: center;">
-        <a th:href="@{/events}" style="text-decoration: none; color: #666; font-size: 14px;">Eventos</a>
-        <a th:href="@{/meus-ingressos}" style="text-decoration: none; color: #666; font-size: 14px;">Meus Ingressos</a>
-        <a th:href="@{/login}" class="btn-primary" style="padding: 8px 20px;">Entrar</a>
-    </nav>
-</header>
-
-<main class="container" style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
-    <h1 style="margin-bottom: 30px; font-size: 28px;">Finalizar compra</h1>
-
-    <div class="main-grid">
-        <div class="left-column">
-            <form th:action="@{/finalizar-compra}" method="post">
-
-                <section class="checkout-card">
-                    <h3>Informações de Pagamento</h3>
-                    <div class="input-group">
-                        <label>Número do Cartão
-                        <input
-                                type="text"
-                                name="numeroCartao"
-                                placeholder="0000 0000 0000 0000"
-                                maxlength="19"
-                                pattern="^(\d{16}|\d{4}\s\d{4}\s\d{4}\s\d{4})$"
-                                inputmode="numeric"
-                                autocomplete="cc-number"
-                                required>
-                        </label>
-                    </div>
-                    <div class="row">
-                        <div class="input-group">
-                            <label>Validade
-                            <input
-                                    type="text"
-                                    name="validade"
-                                    placeholder="MM/AA"
-                                    maxlength="5"
-                                    pattern="^(0[1-9]|1[0-2])\/([0-9]{2})$"
-                                    inputmode="numeric"
-                                    autocomplete="cc-exp"
-                                    required>
-                            </label>
-                        </div>
-                        <div class="input-group">
-                            <label>CVV
-                            <input
-                                    type="text"
-                                    name="cvv"
-                                    placeholder="000"
-                                    maxlength="4"
-                                    pattern="^[0-9]{3,4}$"
-                                    inputmode="numeric"
-                                    autocomplete="cc-csc"
-                                    required>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label>Nome no Cartão
-                        <input
-                                type="text"
-                                name="nomeCartao"
-                                placeholder="Como está gravado no cartão"
-                                pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,30}$"
-                                title="Digite o nome como aparece no cartão (apenas letras)"
-                                autocomplete="cc-name"
-                               required>
-                        </label>
-                    </div>
-                </section>
-
-                <button type="submit" class="btn-finalizar">Confirmar e Pagar</button>
-            </form>
-        </div>
-
-        <aside class="right-column">
-            <div class="summary-card">
-                <h3>Resumo do pedido</h3>
-                <div class="event-mini-card" style="display: flex; gap: 15px; margin: 20px 0; align-items: center;">
-                    <img th:src="${evento.imageUrl}" style="width: 80px; height: 60px; border-radius: 6px; object-fit: cover;">
-                    <div>
-                        <strong th:text="${evento.title}" style="display: block; font-size: 14px;"></strong>
-                        <span th:text="${#temporals.format(evento.date, 'dd/MM/yyyy')}" style="font-size: 12px; color: #666;"></span>
-                    </div>
-                </div>
-
-                <div class="summary-details">
-                    <div class="line"><span>1x Ingresso</span> <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice,1,2)}"></span></div>
-                    <div class="line"><span>Taxa</span> <span>R$ 15,00</span></div>
-                    <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
-                    <div class="line total"><span>Total</span> <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice + 15,1,2)}"></span></div>
-                </div>
+        <section class="checkout-card">
+            <h3>Pagamento</h3>
+            <div class="input-group">
+                <label>Nome no Cartão</label>
+                <input type="text" name="nome" placeholder="Nome Completo" required>
             </div>
-        </aside>
-    </div>
+            <div class="input-group">
+                <label>CPF do Titular</label>
+                <input type="text" name="cpf" placeholder="000.000.000-00" required>
+            </div>
+        </section>
+        <button type="submit" class="btn-finalizar">Confirmar e Pagar</button>
+    </form>
 </main>
-
 </body>
 </html>

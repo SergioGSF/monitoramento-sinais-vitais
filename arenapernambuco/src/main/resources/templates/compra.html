@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${evento.title} + ' - Arena Pernambuco'"></title>
+    <title>Finalizar Compra - Arena Pernambuco</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/compra.css}">
+    <link rel="stylesheet" th:href="@{/css/pagamento.css}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -14,132 +14,75 @@
     <div class="logo-container">
         <div class="logo-icon">A</div>
         <div class="logo-text">
-            <span class="logo-title">Arena Pernambuco</span>
-            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">
-                Eventos e Entretenimento
-            </span>
+            <span class="logo-title" style="font-weight: bold; font-size: 15px;">Arena Pernambuco</span>
+            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Eventos e Entretenimento</span>
         </div>
     </div>
-
     <nav class="nav-links" style="display: flex; gap: 25px; align-items: center;">
-        <a th:href="@{/events}" style="text-decoration: none; color: #666; font-size: 14px;">
-            Eventos
-        </a>
-
-        <a th:href="@{/meus-ingressos}" style="text-decoration: none; color: #666; font-size: 14px;">
-            Meus Ingressos
-        </a>
-
-        <a th:href="@{/login}" class="btn-primary" style="padding: 8px 20px;">
-            Entrar
-        </a>
+        <a th:href="@{/events}" style="text-decoration: none; color: #666; font-size: 14px;">Eventos</a>
+        <a th:href="@{/meus-ingressos}" style="text-decoration: none; color: #666; font-size: 14px;">Meus Ingressos</a>
+        <a th:href="@{/login}" class="btn-primary" style="padding: 8px 20px;">Sair</a>
     </nav>
 </header>
 
-<div class="hero-bar">
-    <div class="container-width">
-        <a th:href="@{/events}" class="btn-voltar"
-           style="text-decoration: none; color: white; font-weight: 600;">
-            Voltar para eventos
-        </a>
-    </div>
-</div>
+<main class="container" style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
+    <h1 style="margin-bottom: 30px; font-size: 28px;">Finalizar compra</h1>
 
-<main class="main-container" th:if="${evento != null}">
-    <div class="purchase-grid">
+    <div class="main-grid">
+        <div class="left-column">
+            <form th:action="@{/confirmacao}" method="post">
 
-        <section class="event-info">
-            <div class="image-showcase">
-                <img th:src="${evento.imageUrl}"
-                     alt="Banner do Evento"
-                     style="width: 100%; border-radius: 12px;">
-            </div>
+                <input type="hidden" name="eventId" th:value="${evento.id}">
 
-            <div class="details-card">
-                <span class="category-tag"
-                      th:text="${evento.category.name}">
-                </span>
+                <section class="checkout-card">
+                    <h3>Informações de Pagamento</h3>
+                    <div class="input-group">
+                        <label>Número do Cartão</label>
+                        <input type="text" name="numeroCartao" placeholder="0000 0000 0000 0000" required>
+                    </div>
+                    <div class="row">
+                        <div class="input-group">
+                            <label>Validade</label>
+                            <input type="text" placeholder="MM/AA" required>
+                        </div>
+                        <div class="input-group">
+                            <label>CVV</label>
+                            <input type="text" placeholder="123" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Nome no Cartão</label>
+                        <input type="text" name="nome" placeholder="Como impresso no cartão" required>
+                    </div>
+                    <div class="input-group">
+                        <label>CPF do Titular</label>
+                        <input type="text" name="cpf" placeholder="000.000.000-00" required>
+                    </div>
+                </section>
 
-                <h1 th:text="${evento.title}"></h1>
+                <button type="submit" class="btn-finalizar">Confirmar e Pagar</button>
+            </form>
+        </div>
 
-                <div class="info-list">
-                    <p>
-                        Data:
-                        <span th:text="${#temporals.format(evento.date, 'dd/MM/yyyy - HH:mm')}"></span>
-                    </p>
-
-                    <p>
-                        Local: Arena Pernambuco - São Lourenço da Mata, PE
-                    </p>
-                </div>
-
-                <div class="description">
-                    <h3>Sobre o evento</h3>
-                    <p>
-                        Garanta seu lugar no maior espetáculo da temporada com conforto e segurança na Arena Pernambuco.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <aside class="checkout-sidebar">
+        <aside class="right-column">
             <div class="summary-card">
-
-                <h3>Resumo da Reserva</h3>
-
-                <div class="price-section">
-                    <span class="label">Valor unitário</span>
-
-                    <div class="price"
-                         th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice, 1, 2, 'DEFAULT')}">
+                <h3>Resumo do pedido</h3>
+                <div class="evento-mini-card" style="display: flex; gap: 15px; margin: 20px 0; align-items: center;">
+                    <img th:if="${evento.imageUrl != null}" th:src="${evento.imageUrl}" style="width: 80px; height: 60px; border-radius: 6px; object-fit: cover;">
+                    <div>
+                        <strong th:text="${evento.title}" style="display: block; font-size: 14px;"></strong>
+                        <span th:text="${#temporals.format(evento.date, 'dd/MM/yyyy')}" style="font-size: 12px; color: #666;"></span>
                     </div>
                 </div>
 
-                <div class="qty-selector">
-                    <span>Quantidade</span>
-
-                    <div class="controls">
-                        <button class="qty-btn">-</button>
-                        <span>1</span>
-                        <button class="qty-btn">+</button>
-                    </div>
+                <div class="summary-details">
+                    <div class="line"><span>1x Ingresso</span> <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice,1,2)}"></span></div>
+                    <div class="line"><span>Taxa</span> <span>R$ 15,00</span></div>
+                    <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
+                    <div class="line total"><span>Total</span> <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice + 15,1,2)}"></span></div>
                 </div>
-
-                <div class="fees">
-
-                    <div class="fee-row">
-                        <span>Subtotal</span>
-
-                        <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice, 1, 2, 'DEFAULT')}">
-                        </span>
-                    </div>
-
-                    <div class="fee-row">
-                        <span>Taxa de conveniência</span>
-                        <span>R$ 15,00</span>
-                    </div>
-
-                    <div class="total-row">
-                        <span>Total</span>
-
-                        <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice + 15, 1, 2, 'DEFAULT')}">
-                        </span>
-                    </div>
-
-                </div>
-
-                <a th:href="@{/pagamento/{id}(id=${evento.id})}"
-                   style="text-decoration: none;">
-
-                    <button class="btn-pagamento">
-                        Continuar para Pagamento
-                    </button>
-
-                </a>
-
             </div>
         </aside>
-
     </div>
 </main>
 

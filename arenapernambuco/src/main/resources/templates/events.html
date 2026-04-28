@@ -56,17 +56,17 @@
     <p class="results-text" th:text="${events != null ? events.size() + ' eventos encontrados' : '0 eventos encontrados'}"></p>
 
     <section class="grid" th:if="${events != null && events.size() > 0}">
-        <div class="card" th:each="event : ${events}">
+        <div class="card" th:each="evento : ${events}">
             <div class="card-img-wrapper">
-                <img th:src="${event.imageUrl}" alt="Imagem do Evento">
-                <span class="tag-badge" th:text="${event.category.name}"></span>
+                <img th:src="${evento.imageUrl}" alt="Imagem do Evento">
+                <span class="tag-badge" th:text="${evento.category.name}"></span>
             </div>
             <div class="card-content">
-                <h3 th:text="${event.title}"></h3>
-                <p class="event-date">📅 <span th:text="${#temporals.format(event.date, 'dd/MM/yyyy - HH:mm')}"></span></p>
+                <h3 th:text="${evento.title}"></h3>
+                <p class="evento-date">📅 <span th:text="${#temporals.format(evento.date, 'dd/MM/yyyy - HH:mm')}"></span></p>
                 <div class="card-footer">
-                    <strong class="price" th:text="'R$ ' + ${#numbers.formatDecimal(event.fullPrice, 1, 2, 'DEFAULT')}"></strong>
-                    <a th:href="@{/compra/{id}(id=${event.id})}" class="btn-details">Ver detalhes</a>
+                    <strong class="price" th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice, 1, 2, 'DEFAULT')}"></strong>
+                    <a th:href="@{/compra/{id}(id=${evento.id})}" class="btn-details">Ver detalhes</a>
                 </div>
             </div>
         </div>

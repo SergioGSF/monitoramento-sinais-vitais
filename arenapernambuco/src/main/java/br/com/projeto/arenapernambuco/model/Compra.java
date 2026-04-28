@@ -27,7 +27,7 @@ public class Compra {
 
     @ManyToOne
     @JoinColumn(name = "evento_id")
-    private Event event;
+    private Evento evento;
 
     public Long getId() {
         return id;
@@ -97,11 +97,11 @@ public class Compra {
         this.cvv = cvv;
     }
 
-    public Event getEvent() {
-        return event;
+    public Evento getEvent() {
+        return evento;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setEvent(Evento evento) {
+        this.evento = evento;
     }
 }

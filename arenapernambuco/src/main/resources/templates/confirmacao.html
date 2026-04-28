@@ -2,43 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compra Confirmada - Arena Pernambuco</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/confirmacao.css}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
 <header class="navbar">
-    <div class="logo-container">
-        <div class="logo-icon">A</div>
-        <div class="logo-text">
-            <span class="logo-title">Arena Pernambuco</span>
-            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Eventos e Entretenimento</span>
-        </div>
-    </div>
-    <nav class="nav-links" style="display: flex; gap: 25px; align-items: center;">
-        <a th:href="@{/events}" style="text-decoration: none; color: #666; font-size: 14px;">Eventos</a>
-        <a th:href="@{/meus-ingressos}" style="text-decoration: none; color: #666; font-size: 14px;">Meus Ingressos</a>
-        <a th:href="@{/login}" class="btn-primary" style="padding: 8px 20px;">Entrar</a>
-    </nav>
+    <div class="logo-container"><div class="logo-icon">A</div><div class="logo-text"><span class="logo-title">Arena Pernambuco</span></div></div>
 </header>
-
 <main class="bg-confirmacao">
     <div class="success-card">
-        <div class="success-icon">✓</div>
+        <div class="success-icon" style="background: #2ecc71; color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">✓</div>
         <h2>Pedido Confirmado!</h2>
-        <p class="success-message">Sua compra foi processada com sucesso. Você já pode acessar seus ingressos na sua área exclusiva.</p>
-
-        <div class="action-buttons">
-            <a th:href="@{/meus-ingressos}" class="btn-primary-card">Ver Meus Ingressos</a>
-            <a th:href="@{/events}" class="btn-outline-card">Voltar para Início</a>
+        <p>Sua compra foi processada com sucesso.</p>
+        <div class="action-buttons" style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+            <a th:href="@{/meus-ingressos}" class="btn-primary" style="text-decoration: none; padding: 12px; text-align: center;">Ver Meus Ingressos</a>
+            <a th:href="@{/events}" style="text-decoration: none; color: #666; text-align: center;">Voltar para Início</a>
         </div>
-
-        <span class="email-notice">Enviamos os detalhes do pedido para o seu e-mail cadastrado.</span>
     </div>
 </main>
-
 </body>
 </html>
