@@ -272,3 +272,7 @@ https://github.com/SergioGSF/programa-cultural-digital/issues
 https://youtu.be/QybrQOebOSA
 
 ## 📁 Entrega 3
+- Issues/bug tracker: 
+https://github.com/SergioGSF/programa-cultural-digital/issues
+<img width="1234" height="310" alt="image" src="https://github.com/user-attachments/assets/1fa53591-cb23-41d7-bae4-8ebad4384291" />
+<img width="920" height="585" alt="image" src="https://github.com/user-attachments/assets/6eec91a4-cff8-4940-a424-d662b88a142e" />
