@@ -21,7 +21,66 @@ Facilitar a comunicação entre interessados e a administração da Arena, incen
 - Realizar análise estatística dos dados  
 - Criar dashboards de monitoramento e análise  
 - Validar desempenho, conectividade e disponibilidade
-  
+
+## 🧩 Modelagem de Domínio (DDD)
+
+O sistema Arena Pernambuco possui como domínio principal a gestão de eventos e ocupação da arena, com foco na administração eficiente do espaço público, divulgação de eventos e apoio à tomada de decisão por meio de indicadores estratégicos.
+
+A modelagem foi estruturada com base em DDD (Domain-Driven Design), permitindo maior organização das regras de negócio, escalabilidade da aplicação e separação clara entre responsabilidades.
+
+### Domínio Principal
+
+### Gestão de Eventos e Ocupação da Arena
+
+Responsável por:
+
+- cadastro e publicação de eventos  
+- solicitação e controle de reservas  
+- gestão da agenda da arena  
+- vitrine pública de eventos  
+- geração de indicadores administrativos  
+- suporte à gestão institucional
+
+### Principais Subdomínios
+
+#### Gestão de Eventos
+
+Responsável pelo cadastro, edição, categorizção e publicação dos eventos realizados na arena.
+
+#### Sistema de Reservas
+
+Responsável pela solicitação, aprovação e controle de uso do espaço físico, evitando conflitos de agenda.
+
+#### Usuários e Perfis
+
+Responsável pela autenticação, autorização e controle de acesso de administradores, organizadores e usuários externos.
+
+#### Indicadores e Relatórios
+
+Responsável pela geração de métricas como taxa de ocupação, reservas confirmadas, cancelamentos e relatórios gerenciais.
+
+### Principais Entidades
+
+- Usuário  
+- Evento  
+- Reserva  
+- Agenda da Arena  
+- Categoria de Evento  
+- Indicadores  
+- Auditoria
+
+### Relacionamentos Principais
+
+- Um usuário pode criar vários eventos  
+- Um usuário pode realizar várias reservas  
+- Cada reserva está vinculada a um evento  
+- Cada evento pertence a uma categoria  
+- Cada evento ocupa um espaço na agenda da arena  
+- O sistema gera indicadores para apoio à gestão  
+- Todas as ações relevantes possuem rastreabilidade por auditoria
+
+Essa estrutura permite a implementação de uma arquitetura robusta em Spring Boot com padrão MVC, integração com banco de dados MySQL e aderência às exigências de segurança e conformidade da administração pública.
+
 ## 🛠️ Tecnologias Utilizadas
 
 ### ☕ Back-end
