@@ -81,6 +81,23 @@ Responsável pela geração de métricas como taxa de ocupação, reservas confi
 
 Essa estrutura permite a implementação de uma arquitetura robusta em Spring Boot com padrão MVC, integração com banco de dados MySQL e aderência às exigências de segurança e conformidade da administração pública.
 
+## ⚙️ Arquitetura Inicial do Sistema (MVP)
+
+A versão inicial do sistema foi definida com foco em funcionalidade, escalabilidade e facilidade de evolução, garantindo uma base sólida para futuras integrações e expansão da plataforma.
+
+O MVP (Minimum Viable Product) contempla os principais fluxos operacionais da Arena Pernambuco, permitindo a gestão eficiente de eventos, reservas e indicadores administrativos.
+
+Os principais componentes contemplados nesta fase são:
+
+- vitrine digital de eventos
+- sistema de solicitação e controle de reservas
+- painel administrativo para gestão interna
+- módulo de indicadores e relatórios gerenciais
+- controle de usuários e permissões
+- auditoria e rastreabilidade de operações
+
+A estrutura foi planejada para suportar crescimento modular, integração com serviços governamentais e conformidade com as exigências de segurança da informação e LGPD.
+
 ## 🛠️ Tecnologias Utilizadas
 
 ### ☕ Back-end
