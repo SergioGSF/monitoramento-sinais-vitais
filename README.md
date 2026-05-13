@@ -330,6 +330,9 @@ O projeto segue uma arquitetura baseada no padrão MVC:
 - Samara Mendonça Nunes  
 - Sergio Gonçalves da Silva Filho
 
+## 📋 Relatório
+https://docs.google.com/document/d/1QH6JocjcplCSpDMpo8D8PWQ_WClk7vnPgfXGS8qXG4w/edit?tab=t.0
+
 ## 📁 Entrega 1
 - Histórias de usuário:
 https://docs.google.com/document/d/1lhORnMbUCOVKTaVsYzWjMuSxe1MJcixIdLyDGVHj028/edit?usp=sharing
