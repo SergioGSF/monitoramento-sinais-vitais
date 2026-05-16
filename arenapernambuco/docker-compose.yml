@@ -1,11 +1,18 @@
-version: '3.8'
 services:
   db:
     image: mysql:8.0
     container_name: mysql_arena
+
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: arenapernambuco
-    ports:
-      - '3306:3306'
+      MYSQL_DATABASE: arena_pernambuco
 
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./src/main/resources/data.sql:/docker-entrypoint-initdb.d/data.sql
+
+volumes:
+  mysql_data:
