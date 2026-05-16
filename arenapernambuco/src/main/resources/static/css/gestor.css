@@ -1,0 +1,254 @@
+.page-hero {
+    background: linear-gradient(90deg, #2c3e50, #3498db);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.page-hero h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.page-hero p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.section-block {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.section-block h3 {
+    font-size: 18px;
+    color: #222;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.approval-card {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background: #fafafa;
+    transition: 0.2s;
+}
+
+.approval-card:hover {
+    border-color: #ddd;
+    background: #f5f5f5;
+}
+
+.approval-img {
+    width: 80px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #eee;
+}
+
+.approval-info {
+    flex: 1;
+}
+
+.approval-info h4 {
+    font-size: 16px;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.approval-info p {
+    font-size: 13px;
+    color: #888;
+}
+
+.approval-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.btn-approve {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-approve:hover {
+    background: #219a52;
+}
+
+.btn-reject {
+    background: #fff0f0;
+    color: #e74c3c;
+    border: 1px solid #ffd0d0;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-reject:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-top: 4px solid #3498db;
+}
+
+.stat-card.verde { border-top-color: #27ae60; }
+.stat-card.amarelo { border-top-color: #f39c12; }
+.stat-card.vermelho { border-top-color: #e74c3c; }
+.stat-card.laranja { border-top-color: var(--laranja); }
+
+.stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: #222;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #888;
+    margin-top: 6px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+.data-table {
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-collapse: collapse;
+}
+
+.data-table th {
+    background: #f8f9fa;
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #eee;
+}
+
+.data-table td {
+    padding: 14px 20px;
+    font-size: 14px;
+    color: #444;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+}
+
+.badge-aprovado { background: #27ae60; }
+.badge-pendente { background: #f39c12; }
+.badge-cancelado { background: #e74c3c; }
+
+.agenda-card {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 15px;
+    border-left: 4px solid #27ae60;
+}
+
+.agenda-date-block {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px 16px;
+    text-align: center;
+    flex-shrink: 0;
+    min-width: 70px;
+}
+
+.agenda-day {
+    font-size: 26px;
+    font-weight: 700;
+    color: #222;
+    line-height: 1;
+}
+
+.agenda-month {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.agenda-info h4 {
+    font-size: 17px;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.agenda-info p {
+    font-size: 13px;
+    color: #888;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: #999;
+    font-size: 15px;
+}
+
+@media (max-width: 650px) {
+    .approval-card { flex-direction: column; align-items: flex-start; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+}

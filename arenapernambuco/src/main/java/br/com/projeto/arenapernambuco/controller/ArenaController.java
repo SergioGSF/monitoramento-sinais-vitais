@@ -1,6 +1,7 @@
 package br.com.projeto.arenapernambuco.controller;
 
 import br.com.projeto.arenapernambuco.model.Compra;
+import br.com.projeto.arenapernambuco.model.Evento;
 import br.com.projeto.arenapernambuco.repository.CompraRepository;
 import br.com.projeto.arenapernambuco.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,10 @@ public class ArenaController {
     public String listarEventos(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String q,
+            @RequestParam(required = false) String sort,
             Model model) {
 
-        var events = eventoRepository.findAll();
+        var events = eventoRepository.findByStatus(Evento.Status.APROVADO);
 
         if (category != null && !category.isEmpty()) {
             events = events.stream()
@@ -42,9 +44,20 @@ public class ArenaController {
                     .toList();
         }
 
+        if ("price_asc".equals(sort)) {
+            events = events.stream()
+                    .sorted((a, b) -> Double.compare(a.getFullPrice(), b.getFullPrice()))
+                    .toList();
+        } else {
+            events = events.stream()
+                    .sorted((a, b) -> a.getDate().compareTo(b.getDate()))
+                    .toList();
+        }
+
         model.addAttribute("events", events);
         model.addAttribute("selectedCategory", category);
         model.addAttribute("q", q);
+        model.addAttribute("sort", sort);
 
         return "events";
     }
@@ -52,32 +65,12 @@ public class ArenaController {
     @GetMapping("/compra/{id}")
     public String detalhesEvento(@PathVariable Long id, Model model) {
         return eventoRepository.findById(id)
+                .filter(e -> e.getStatus() == Evento.Status.APROVADO)
                 .map(evento -> {
                     model.addAttribute("evento", evento);
                     return "compra";
                 })
                 .orElse("redirect:/events");
-    }
-
-    @GetMapping("/pagamento/{id}")
-    public String pagamento(@PathVariable Long id, Model model) {
-        return eventoRepository.findById(id)
-                .map(evento -> {
-                    model.addAttribute("evento", evento);
-                    return "pagamento";
-                })
-                .orElse("redirect:/events");
-    }
-
-    @PostMapping("/finalizar-compra")
-    public String finalizarCompra(
-            Compra compra,
-            @RequestParam Long eventId
-    ) {
-        var evento = eventoRepository.findById(eventId).orElse(null);
-        compra.setEvent(evento);
-        compraRepository.save(compra);
-        return "redirect:/confirmacao";
     }
 
     @GetMapping("/confirmacao")

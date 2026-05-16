@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Arena Pernambuco</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/cadastro.css}"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/cadastro.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -43,10 +44,13 @@
                     <label>Tipo de Acesso</label>
                     <div class="radio-group">
                         <input type="radio" name="role" value="citizen" id="citizen" required checked>
-                        <label for="citizen" class="radio-label">CIDADÃO</label>
+                        <label for="citizen" class="radio-label">CLIENTE</label>
 
-                        <input type="radio" name="role" value="admin" id="admin" required>
-                        <label for="admin" class="radio-label">ADMIN</label>
+                        <input type="radio" name="role" value="empresa" id="empresa">
+                        <label for="empresa" class="radio-label">EMPRESA</label>
+
+                        <input type="radio" name="role" value="gestor" id="gestor">
+                        <label for="gestor" class="radio-label">GESTOR</label>
                     </div>
                 </div>
 

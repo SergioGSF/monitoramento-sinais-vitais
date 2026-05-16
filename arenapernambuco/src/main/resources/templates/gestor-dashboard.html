@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Gestor - Arena Pernambuco</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/gestor.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo-container">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">
+            <span class="logo-title" style="font-weight: bold; font-size: 15px;">Arena Pernambuco</span>
+            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Painel do Gestor</span>
+        </div>
+    </div>
+    <nav class="nav-links" style="display: flex; gap: 25px; align-items: center;">
+        <a th:href="@{/gestor/dashboard}" style="text-decoration: none; color: #3498db; font-weight: bold; font-size: 14px;">Painel</a>
+        <a th:href="@{/gestor/agenda}" style="text-decoration: none; color: #666; font-size: 14px;">Agenda</a>
+        <a th:href="@{/gestor/stats}" style="text-decoration: none; color: #666; font-size: 14px;">Estatísticas</a>
+        <form th:action="@{/logout}" method="post" style="margin: 0;">
+            <button type="submit" class="btn-primary" style="padding: 8px 20px; cursor: pointer; border: none; font-family: inherit;">Sair</button>
+        </form>
+    </nav>
+</header>
+
+<section class="page-hero">
+    <h2>Painel de Gestão</h2>
+    <p>Gerencie aprovações e acompanhe todos os eventos da Arena Pernambuco</p>
+</section>
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 30px 20px;">
+
+    <div class="section-block">
+        <h3>⏳ Aguardando Aprovação <span th:text="'(' + ${pendentes.size()} + ')'" style="font-size: 14px; color: #f39c12; font-weight: 600;"></span></h3>
+
+        <div th:if="${pendentes != null && pendentes.size() > 0}">
+            <div class="approval-card" th:each="evento : ${pendentes}">
+                <img class="approval-img" th:src="${evento.imageUrl}" alt="Evento">
+                <div class="approval-info">
+                    <h4 th:text="${evento.title}"></h4>
+                    <p>📅 <span th:text="${#temporals.format(evento.date, 'dd/MM/yyyy - HH:mm')}"></span>
+                       &nbsp;·&nbsp; <span th:text="${evento.category != null ? evento.category.name : '—'}"></span>
+                       &nbsp;·&nbsp; R$ <span th:text="${#numbers.formatDecimal(evento.fullPrice, 1, 2, 'DEFAULT')}"></span>
+                    </p>
+                    <p th:if="${evento.empresa != null}" style="margin-top: 4px;">
+                        🏢 <span th:text="${evento.empresa.name}"></span>
+                    </p>
+                </div>
+                <div class="approval-actions">
+                    <form th:action="@{/gestor/aprovar/{id}(id=${evento.id})}" method="post" style="margin: 0;">
+                        <button type="submit" class="btn-approve">✓ Aprovar</button>
+                    </form>
+                    <form th:action="@{/gestor/cancelar/{id}(id=${evento.id})}" method="post" style="margin: 0;">
+                        <button type="submit" class="btn-reject" onclick="return confirm('Cancelar este evento?')">✕ Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${pendentes == null || pendentes.size() == 0}" class="empty-state">
+            Nenhum evento pendente de aprovação.
+        </div>
+    </div>
+
+    <div class="section-block">
+        <h3>📋 Todos os Eventos</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Evento</th>
+                    <th>Empresa</th>
+                    <th>Data</th>
+                    <th>Categoria</th>
+                    <th>Preço</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="evento : ${todos}">
+                    <td th:text="${evento.title}"></td>
+                    <td th:text="${evento.empresa != null ? evento.empresa.name : '—'}"></td>
+                    <td th:text="${#temporals.format(evento.date, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${evento.category != null ? evento.category.name : '—'}"></td>
+                    <td th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice, 1, 2, 'DEFAULT')}"></td>
+                    <td>
+                        <span class="status-badge"
+                              th:classappend="${evento.status.name() == 'APROVADO' ? ' badge-aprovado' : (evento.status.name() == 'CANCELADO' ? ' badge-cancelado' : ' badge-pendente')}"
+                              th:text="${evento.status.name()}">
+                        </span>
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 8px;" th:if="${evento.status.name() != 'CANCELADO'}">
+                            <form th:if="${evento.status.name() != 'APROVADO'}" th:action="@{/gestor/aprovar/{id}(id=${evento.id})}" method="post" style="margin: 0;">
+                                <button type="submit" class="btn-approve" style="padding: 5px 12px; font-size: 12px;">Aprovar</button>
+                            </form>
+                            <form th:action="@{/gestor/cancelar/{id}(id=${evento.id})}" method="post" style="margin: 0;">
+                                <button type="submit" class="btn-reject" style="padding: 5px 12px; font-size: 12px;" onclick="return confirm('Cancelar este evento?')">Cancelar</button>
+                            </form>
+                        </div>
+                        <span th:if="${evento.status.name() == 'CANCELADO'}" style="color: #bbb; font-size: 13px;">—</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

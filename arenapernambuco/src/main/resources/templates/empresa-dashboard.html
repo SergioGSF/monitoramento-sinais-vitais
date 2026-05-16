@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Eventos - Arena Pernambuco</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/empresa.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo-container">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">
+            <span class="logo-title" style="font-weight: bold; font-size: 15px;">Arena Pernambuco</span>
+            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Empresa Parceira</span>
+        </div>
+    </div>
+    <nav class="nav-links" style="display: flex; gap: 25px; align-items: center;">
+        <a th:href="@{/empresa/dashboard}" style="text-decoration: none; color: var(--laranja); font-weight: bold; font-size: 14px;">Meus Eventos</a>
+        <a th:href="@{/empresa/criar-evento}" style="text-decoration: none; color: #666; font-size: 14px;">Criar Evento</a>
+        <a th:href="@{/empresa/stats}" style="text-decoration: none; color: #666; font-size: 14px;">Estatísticas</a>
+        <form th:action="@{/logout}" method="post" style="margin: 0;">
+            <button type="submit" class="btn-primary" style="padding: 8px 20px; cursor: pointer; border: none; font-family: inherit;">Sair</button>
+        </form>
+    </nav>
+</header>
+
+<section class="page-hero">
+    <h2>Meus Eventos</h2>
+    <p>Gerencie todos os seus eventos cadastrados na Arena Pernambuco</p>
+    <a th:href="@{/empresa/criar-evento}" class="btn-hero">+ Criar Novo Evento</a>
+</section>
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 30px 20px;">
+
+    <div th:if="${eventos != null && eventos.size() > 0}" class="eventos-grid">
+        <div class="evento-card" th:each="evento : ${eventos}">
+            <div class="card-img-wrapper">
+                <img th:src="${evento.imageUrl}" alt="Evento">
+                <span class="status-badge"
+                      th:classappend="${evento.status.name() == 'APROVADO' ? ' badge-aprovado' : (evento.status.name() == 'CANCELADO' ? ' badge-cancelado' : ' badge-pendente')}"
+                      th:text="${evento.status.name()}">
+                </span>
+            </div>
+            <div class="card-content">
+                <h3 th:text="${evento.title}"></h3>
+                <p class="evento-date">📅 <span th:text="${#temporals.format(evento.date, 'dd/MM/yyyy - HH:mm')}"></span></p>
+                <p style="font-size: 13px; color: #888;" th:text="${evento.category != null ? evento.category.name : '—'}"></p>
+                <div class="card-footer">
+                    <strong class="price" th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice, 1, 2, 'DEFAULT')}"></strong>
+                    <div style="display: flex; gap: 8px;">
+                        <a th:href="@{/empresa/editar-evento/{id}(id=${evento.id})}" class="btn-edit">Editar</a>
+                        <form th:action="@{/empresa/excluir-evento/{id}(id=${evento.id})}" method="post" style="margin: 0;">
+                            <button type="submit" class="btn-delete" onclick="return confirm('Deseja excluir este evento?')">Excluir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${eventos == null || eventos.size() == 0}" class="empty-state">
+        <p>Você ainda não tem eventos cadastrados.</p>
+        <a th:href="@{/empresa/criar-evento}" class="btn-primary" style="display: inline-block; margin-top: 20px; text-decoration: none; padding: 12px 25px;">Criar primeiro evento</a>
+    </div>
+
+</div>
+
+</body>
+</html>

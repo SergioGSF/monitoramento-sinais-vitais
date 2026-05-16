@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Evento - Arena Pernambuco</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/empresa.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo-container">
+        <div class="logo-icon">A</div>
+        <div class="logo-text">
+            <span class="logo-title" style="font-weight: bold; font-size: 15px;">Arena Pernambuco</span>
+            <span class="logo-subtitle" style="font-size: 10px; color: #888; display: block;">Empresa Parceira</span>
+        </div>
+    </div>
+    <nav class="nav-links" style="display: flex; gap: 25px; align-items: center;">
+        <a th:href="@{/empresa/dashboard}" style="text-decoration: none; color: #666; font-size: 14px;">Meus Eventos</a>
+        <a th:href="@{/empresa/criar-evento}" style="text-decoration: none; color: #666; font-size: 14px;">Criar Evento</a>
+        <a th:href="@{/empresa/stats}" style="text-decoration: none; color: #666; font-size: 14px;">Estatísticas</a>
+        <form th:action="@{/logout}" method="post" style="margin: 0;">
+            <button type="submit" class="btn-primary" style="padding: 8px 20px; cursor: pointer; border: none; font-family: inherit;">Sair</button>
+        </form>
+    </nav>
+</header>
+
+<section class="page-hero">
+    <h2>Editar Evento</h2>
+    <p>As alterações voltarão o status para Pendente até nova aprovação do gestor.</p>
+</section>
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 30px 20px;">
+    <a th:href="@{/empresa/dashboard}" class="btn-back">← Voltar para Meus Eventos</a>
+
+    <div class="form-card">
+        <h3>Dados do Evento</h3>
+        <form th:action="@{/empresa/editar-evento/{id}(id=${evento.id})}" method="post">
+
+            <div class="input-group">
+                <label>Nome do Evento</label>
+                <input type="text" name="title" th:value="${evento.title}" required>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label>Data e Hora</label>
+                    <input type="datetime-local" name="date" th:value="${#temporals.format(evento.date, 'yyyy-MM-dd''T''HH:mm')}" required>
+                </div>
+                <div class="input-group">
+                    <label>Categoria</label>
+                    <select name="category.id" required>
+                        <option value="">Selecione...</option>
+                        <option th:each="cat : ${categorias}"
+                                th:value="${cat.id}"
+                                th:text="${cat.name}"
+                                th:selected="${evento.category != null && evento.category.id == cat.id}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label>Preço do Ingresso (R$)</label>
+                    <input type="number" name="fullPrice" th:value="${evento.fullPrice}" step="0.01" min="0" required>
+                </div>
+                <div class="input-group">
+                    <label>URL da Imagem</label>
+                    <input type="text" name="imageUrl" th:value="${evento.imageUrl}">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Descrição</label>
+                <textarea name="description" th:text="${evento.description}"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Salvar e Reenviar para Aprovação</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
