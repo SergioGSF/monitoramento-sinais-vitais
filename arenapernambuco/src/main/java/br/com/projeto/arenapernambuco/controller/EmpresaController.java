@@ -6,6 +6,7 @@ import br.com.projeto.arenapernambuco.repository.CategoryRepository;
 import br.com.projeto.arenapernambuco.repository.CompraRepository;
 import br.com.projeto.arenapernambuco.repository.EventoRepository;
 import br.com.projeto.arenapernambuco.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,7 @@ public class EmpresaController {
     private CompraRepository compraRepository;
 
     @GetMapping("/dashboard")
+    @Transactional
     public String dashboard(Model model, Principal principal) {
         User empresa = userRepository.findByEmail(principal.getName()).orElseThrow();
         model.addAttribute("eventos", eventoRepository.findByEmpresa(empresa));
@@ -57,6 +59,7 @@ public class EmpresaController {
     }
 
     @GetMapping("/editar-evento/{id}")
+    @Transactional
     public String editarEventoForm(@PathVariable Long id, Model model, Principal principal) {
         User empresa = userRepository.findByEmail(principal.getName()).orElseThrow();
         return eventoRepository.findById(id)
@@ -70,6 +73,7 @@ public class EmpresaController {
     }
 
     @PostMapping("/editar-evento/{id}")
+    @Transactional
     public String editarEvento(@PathVariable Long id, Evento eventoAtualizado, Principal principal) {
         User empresa = userRepository.findByEmail(principal.getName()).orElseThrow();
         eventoRepository.findById(id)
@@ -97,6 +101,7 @@ public class EmpresaController {
     }
 
     @GetMapping("/stats")
+    @Transactional
     public String stats(Model model, Principal principal) {
         User empresa = userRepository.findByEmail(principal.getName()).orElseThrow();
         List<Evento> eventos = eventoRepository.findByEmpresa(empresa);
@@ -108,13 +113,13 @@ public class EmpresaController {
 
         Map<Evento, Long> ingressosPorEvento = new LinkedHashMap<>();
         for (Evento e : eventos) {
-            ingressosPorEvento.put(e, compraRepository.countByEvent(e));
+            ingressosPorEvento.put(e, compraRepository.countByEvento(e));
         }
 
         long totalIngressos = ingressosPorEvento.values().stream().mapToLong(Long::longValue).sum();
         double receita = eventos.stream()
-                .filter(e -> e.getStatus() == Evento.Status.APROVADO)
-                .mapToDouble(e -> compraRepository.countByEvent(e) * e.getFullPrice())
+                .filter(e -> e.getStatus() == Evento.Status.APROVADO && e.getFullPrice() != null)
+                .mapToDouble(e -> compraRepository.countByEvento(e) * e.getFullPrice())
                 .sum();
 
         model.addAttribute("empresa", empresa);

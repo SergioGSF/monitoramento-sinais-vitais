@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface CompraRepository extends JpaRepository<Compra, Long> {
     List<Compra> findByEmail(String email);
-    List<Compra> findByEvent(Evento event);
-    long countByEvent(Evento event);
+    List<Compra> findByEvento(Evento evento);
+    long countByEvento(Evento evento);
 }

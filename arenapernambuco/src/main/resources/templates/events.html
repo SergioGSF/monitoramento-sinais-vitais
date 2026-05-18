@@ -40,9 +40,13 @@
     <section class="filters-area">
         <div class="tags">
             <a th:href="@{/events}" th:classappend="${selectedCategory == null ? 'active' : ''}">Todos</a>
-            <a th:href="@{/events(category='Show')}" th:classappend="${selectedCategory == 'Show' ? 'active' : ''}">Show</a>
+            <a th:href="@{/events(category='Musica')}" th:classappend="${selectedCategory == 'Musica' ? 'active' : ''}">Show</a>
+            <a th:href="@{/events(category='Festival')}" th:classappend="${selectedCategory == 'Festival' ? 'active' : ''}">Festival</a>
             <a th:href="@{/events(category='Esporte')}" th:classappend="${selectedCategory == 'Esporte' ? 'active' : ''}">Esporte</a>
             <a th:href="@{/events(category='Teatro')}" th:classappend="${selectedCategory == 'Teatro' ? 'active' : ''}">Teatro</a>
+            <a th:href="@{/events(category='Comedia')}" th:classappend="${selectedCategory == 'Comedia' ? 'active' : ''}">Comédia</a>
+            <a th:href="@{/events(category='Exposicao')}" th:classappend="${selectedCategory == 'Exposicao' ? 'active' : ''}">Exposição</a>
+            <a th:href="@{/events(category='Tecnologia')}" th:classappend="${selectedCategory == 'Tecnologia' ? 'active' : ''}">Tecnologia</a>
         </div>
 
         <div class="select-box">
@@ -59,7 +63,7 @@
         <div class="card" th:each="evento : ${events}">
             <div class="card-img-wrapper">
                 <img th:src="${evento.imageUrl}" alt="Imagem do Evento">
-                <span class="tag-badge" th:text="${evento.category.name}"></span>
+                <span class="tag-badge" th:text="${evento.category != null ? evento.category.name : ''}"></span>
             </div>
             <div class="card-content">
                 <h3 th:text="${evento.title}"></h3>

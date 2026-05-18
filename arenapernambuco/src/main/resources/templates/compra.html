@@ -21,7 +21,9 @@
     <nav class="nav-links" style="display: flex; gap: 25px; align-items: center;">
         <a th:href="@{/events}" style="text-decoration: none; color: #666; font-size: 14px;">Eventos</a>
         <a th:href="@{/meus-ingressos}" style="text-decoration: none; color: #666; font-size: 14px;">Meus Ingressos</a>
-        <a th:href="@{/login}" class="btn-primary" style="padding: 8px 20px;">Sair</a>
+        <form th:action="@{/logout}" method="post" style="margin: 0;">
+            <button type="submit" class="btn-primary" style="padding: 8px 20px; cursor: pointer; border: none; font-family: inherit;">Sair</button>
+        </form>
     </nav>
 </header>
 
@@ -55,7 +57,7 @@
 
                     <div class="input-group">
                         <label>Nome no Cartão</label>
-                        <input type="text" name="nomeCartao" placeholder="NOME COMO IMPRESSO NO CARTÃO" required oninput="mascaraNome(this)" style="text-transform: uppercase;">
+                        <input type="text" name="nome" placeholder="NOME COMO IMPRESSO NO CARTÃO" required oninput="mascaraNome(this)" style="text-transform: uppercase;">
                     </div>
 
                     <div class="input-group">
@@ -80,11 +82,8 @@
                     }
 
                     function mascaraNome(input) {
-
                         let valor = input.value.replace(/[^a-zA-ZÀ-ÿ \-']/g, '');
-
                         valor = valor.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
                         input.value = valor.toUpperCase();
                     }
 

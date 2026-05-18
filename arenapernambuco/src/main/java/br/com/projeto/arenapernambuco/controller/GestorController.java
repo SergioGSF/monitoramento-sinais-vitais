@@ -3,6 +3,7 @@ package br.com.projeto.arenapernambuco.controller;
 import br.com.projeto.arenapernambuco.model.Evento;
 import br.com.projeto.arenapernambuco.repository.CompraRepository;
 import br.com.projeto.arenapernambuco.repository.EventoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,7 @@ public class GestorController {
     private CompraRepository compraRepository;
 
     @GetMapping("/dashboard")
+    @Transactional
     public String dashboard(Model model) {
         model.addAttribute("pendentes", eventoRepository.findByStatus(Evento.Status.PENDENTE));
         model.addAttribute("todos", eventoRepository.findAll());
@@ -50,6 +52,7 @@ public class GestorController {
     }
 
     @GetMapping("/agenda")
+    @Transactional
     public String agenda(Model model) {
         List<Evento> aprovados = eventoRepository.findByStatus(Evento.Status.APROVADO)
                 .stream()
@@ -60,6 +63,7 @@ public class GestorController {
     }
 
     @GetMapping("/stats")
+    @Transactional
     public String stats(Model model) {
         List<Evento> todos = eventoRepository.findAll();
 
@@ -76,14 +80,14 @@ public class GestorController {
 
         List<Evento> topEventos = todos.stream()
                 .sorted((a, b) -> Long.compare(
-                        compraRepository.countByEvent(b),
-                        compraRepository.countByEvent(a)))
+                        compraRepository.countByEvento(b),
+                        compraRepository.countByEvento(a)))
                 .limit(5)
                 .collect(Collectors.toList());
 
         Map<Evento, Long> ingressosPorEvento = new LinkedHashMap<>();
         for (Evento e : topEventos) {
-            ingressosPorEvento.put(e, compraRepository.countByEvent(e));
+            ingressosPorEvento.put(e, compraRepository.countByEvento(e));
         }
 
         model.addAttribute("totalEventos", totalEventos);
