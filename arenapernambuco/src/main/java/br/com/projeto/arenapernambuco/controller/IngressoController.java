@@ -36,17 +36,21 @@ public class IngressoController {
     public String processarCompra(@RequestParam("eventId") Long eventId,
                                   @RequestParam("nome") String nome,
                                   @RequestParam("cpf") String cpf,
+                                  @RequestParam(value = "quantidade", defaultValue = "1") int quantidade,
                                   Principal principal) {
+
         Evento evento = eventoRepository.findById(eventId)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
-        Compra novaCompra = new Compra();
-        novaCompra.setEvent(evento);
-        novaCompra.setNome(nome);
-        novaCompra.setCpf(cpf);
-        novaCompra.setEmail(principal.getName());
+        for (int i = 0; i < quantidade; i++) {
+            Compra novaCompra = new Compra();
+            novaCompra.setEvent(evento);
+            novaCompra.setNome(nome);
+            novaCompra.setCpf(cpf);
+            novaCompra.setEmail(principal.getName());
+            compraRepository.save(novaCompra);
+        }
 
-        compraRepository.save(novaCompra);
         return "redirect:/confirmacao";
     }
 

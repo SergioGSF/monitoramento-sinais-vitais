@@ -35,6 +35,27 @@
             <form th:action="@{/confirmacao}" method="post">
 
                 <input type="hidden" name="eventId" th:value="${evento.id}">
+                <input type="hidden" id="precoUnitario" th:value="${evento.fullPrice}">
+
+                <!-- Quantidade de Ingressos -->
+                <section class="checkout-card" style="margin-bottom: 20px;">
+                    <h3>Quantidade de Ingressos</h3>
+                    <div class="input-group">
+                        <label>Quantidade</label>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <button type="button" onclick="alterarQuantidade(-1)"
+                                    style="width:36px;height:36px;border-radius:50%;border:1px solid #ccc;
+                                           background:#fff;font-size:18px;cursor:pointer;line-height:1;">−</button>
+                            <input type="number" id="quantidade" name="quantidade"
+                                   value="1" min="1" max="10" readonly
+                                   style="width:60px;text-align:center;font-size:16px;
+                                          border:1px solid #ccc;border-radius:6px;padding:6px;">
+                            <button type="button" onclick="alterarQuantidade(1)"
+                                    style="width:36px;height:36px;border-radius:50%;border:1px solid #ccc;
+                                           background:#fff;font-size:18px;cursor:pointer;line-height:1;">+</button>
+                        </div>
+                    </div>
+                </section>
 
                 <section class="checkout-card">
                     <h3>Informações de Pagamento</h3>
@@ -67,6 +88,28 @@
                 </section>
 
                 <script>
+                    function alterarQuantidade(delta) {
+                        const input = document.getElementById('quantidade');
+                        const novo = parseInt(input.value) + delta;
+                        if (novo < 1 || novo > 10) return;
+                        input.value = novo;
+                        atualizarResumo();
+                    }
+
+                    function atualizarResumo() {
+                        const qtd = parseInt(document.getElementById('quantidade').value);
+                        const preco = parseFloat(document.getElementById('precoUnitario').value);
+                        const taxa = 15.00;
+                        const subtotal = qtd * preco;
+                        const total = subtotal + taxa;
+
+                        document.getElementById('labelIngresso').textContent = qtd + 'x Ingresso';
+                        document.getElementById('subtotalIngresso').textContent =
+                            'R$ ' + subtotal.toFixed(2).replace('.', ',');
+                        document.getElementById('totalFinal').textContent =
+                            'R$ ' + total.toFixed(2).replace('.', ',');
+                    }
+
                     function mascaraCartao(input) {
                         let valor = input.value.replace(/\D/g, '');
                         valor = valor.replace(/(\d{4})/g, '$1 ').trim();
@@ -116,10 +159,16 @@
                 </div>
 
                 <div class="summary-details">
-                    <div class="line"><span>1x Ingresso</span> <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice,1,2)}"></span></div>
+                    <div class="line">
+                        <span id="labelIngresso">1x Ingresso</span>
+                        <span id="subtotalIngresso" th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice, 1, 2)}"></span>
+                    </div>
                     <div class="line"><span>Taxa</span> <span>R$ 15,00</span></div>
                     <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
-                    <div class="line total"><span>Total</span> <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice + 15,1,2)}"></span></div>
+                    <div class="line total">
+                        <span>Total</span>
+                        <span id="totalFinal" th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice + 15, 1, 2)}"></span>
+                    </div>
                 </div>
             </div>
         </aside>
