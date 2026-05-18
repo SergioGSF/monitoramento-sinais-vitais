@@ -358,3 +358,10 @@ https://github.com/SergioGSF/programa-cultural-digital/issues
 
 - Screencast: 
 https://youtu.be/wE20pIKdeRU
+
+## 📁 Entrega 4
+- Issues/bug tracker: 
+https://github.com/SergioGSF/programa-cultural-digital/issues
+<img width="1156" height="1743" alt="IMG_20260518_200938" src="https://github.com/user-attachments/assets/81ed3144-6302-4f89-9ea9-6db3fa820711" />
+
+
