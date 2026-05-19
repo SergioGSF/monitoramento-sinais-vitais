@@ -1,29 +1,282 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Pagamento - Arena Pernambuco</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/pagamento.css}">
-</head>
-<body>
-<main class="container">
-    <form th:action="@{/confirmacao}" method="post">
-        <input type="hidden" name="eventId" th:value="${evento.id}">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 
-        <section class="checkout-card">
-            <h3>Pagamento</h3>
-            <div class="input-group">
-                <label>Nome no Cartão</label>
-                <input type="text" name="nome" placeholder="Nome Completo" required>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Pagamento - Arena Pernambuco
+    </title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}">
+
+    <style>
+
+        body{
+            background:#f5f5f5;
+            font-family:Arial, sans-serif;
+        }
+
+        .container{
+            max-width:1200px;
+            margin:40px auto;
+            padding:0 20px;
+        }
+
+        .main-grid{
+            display:grid;
+            grid-template-columns:2fr 1fr;
+            gap:30px;
+        }
+
+        .checkout-card,
+        .summary-card{
+            background:#fff;
+            border-radius:12px;
+            padding:24px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .input-group{
+            margin-top:20px;
+        }
+
+        .input-group label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:600;
+        }
+
+        .input-group input{
+            width:100%;
+            height:45px;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            font-size:15px;
+        }
+
+        .row{
+            display:flex;
+            gap:20px;
+        }
+
+        .line{
+            display:flex;
+            justify-content:space-between;
+            margin-top:14px;
+        }
+
+        .total{
+            font-size:18px;
+            font-weight:bold;
+        }
+
+        .btn-finalizar{
+            width:100%;
+            height:50px;
+            margin-top:25px;
+            border:none;
+            border-radius:10px;
+            cursor:pointer;
+            font-size:16px;
+            font-weight:bold;
+            background:#111;
+            color:white;
+        }
+
+        .evento-img{
+            width:100%;
+            height:180px;
+            object-fit:cover;
+            border-radius:10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<main class="container">
+
+    <h1 style="margin-bottom:30px;">
+        Finalizar Compra
+    </h1>
+
+    <div class="main-grid">
+
+        <div>
+
+            <form th:action="@{/confirmacao}"
+                  method="post">
+
+                <input type="hidden"
+                       name="eventId"
+                       th:value="${evento.id}">
+
+                <input type="hidden"
+                       name="quantidade"
+                       th:value="${quantidade}">
+
+                <section class="checkout-card">
+
+                    <h3>
+                        Informações de Pagamento
+                    </h3>
+
+                    <div class="input-group">
+
+                        <label>
+                            Número do Cartão
+                        </label>
+
+                        <input type="text"
+                               name="numeroCartao"
+                               placeholder="0000 0000 0000 0000"
+                               required>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="input-group"
+                             style="flex:1;">
+
+                            <label>
+                                Validade
+                            </label>
+
+                            <input type="text"
+                                   name="validade"
+                                   placeholder="MM/AA"
+                                   required>
+
+                        </div>
+
+                        <div class="input-group"
+                             style="flex:1;">
+
+                            <label>
+                                CVV
+                            </label>
+
+                            <input type="text"
+                                   name="cvv"
+                                   placeholder="123"
+                                   required>
+
+                        </div>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            Nome Completo
+                        </label>
+
+                        <input type="text"
+                               name="nome"
+                               placeholder="Nome completo"
+                               required>
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>
+                            CPF
+                        </label>
+
+                        <input type="text"
+                               name="cpf"
+                               placeholder="000.000.000-00"
+                               required>
+
+                    </div>
+
+                </section>
+
+                <button type="submit"
+                        class="btn-finalizar">
+
+                    Confirmar e Pagar
+
+                </button>
+
+            </form>
+
+        </div>
+
+        <aside>
+
+            <div class="summary-card">
+
+                <h3>
+                    Resumo do Pedido
+                </h3>
+
+                <div style="margin-top:20px;">
+
+                    <img th:src="${evento.imageUrl}"
+                         class="evento-img">
+
+                    <h4 th:text="${evento.title}"
+                        style="margin-top:15px;">
+                    </h4>
+
+                </div>
+
+                <div class="line"
+                     style="margin-top:25px;">
+
+                    <span th:text="${quantidade} + 'x Ingresso'">
+                    </span>
+
+                    <span th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice * quantidade,1,2,'DEFAULT')}">
+                    </span>
+
+                </div>
+
+                <div class="line">
+
+                    <span>
+                        Taxa de conveniência
+                    </span>
+
+                    <span>
+                        R$ 15,00
+                    </span>
+
+                </div>
+
+                <hr style="margin:20px 0;">
+
+                <div class="line total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <span th:text="'R$ ' + ${#numbers.formatDecimal((evento.fullPrice * quantidade) + 15,1,2,'DEFAULT')}">
+                    </span>
+
+                </div>
+
             </div>
-            <div class="input-group">
-                <label>CPF do Titular</label>
-                <input type="text" name="cpf" placeholder="000.000.000-00" required>
-            </div>
-        </section>
-        <button type="submit" class="btn-finalizar">Confirmar e Pagar</button>
-    </form>
+
+        </aside>
+
+    </div>
+
 </main>
+
 </body>
+
 </html>

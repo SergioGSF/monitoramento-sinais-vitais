@@ -4,6 +4,7 @@ import br.com.projeto.arenapernambuco.model.Compra;
 import br.com.projeto.arenapernambuco.model.Evento;
 import br.com.projeto.arenapernambuco.repository.CompraRepository;
 import br.com.projeto.arenapernambuco.repository.EventoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,26 +32,40 @@ public class ArenaController {
         var events = eventoRepository.findByStatus(Evento.Status.APROVADO);
 
         if (category != null && !category.isEmpty()) {
+
             events = events.stream()
                     .filter(e -> e.getCategory() != null
-                            && e.getCategory().getName().equalsIgnoreCase(category))
+                            && e.getCategory()
+                            .getName()
+                            .equalsIgnoreCase(category))
                     .toList();
         }
 
         if (q != null && !q.isEmpty()) {
+
             events = events.stream()
                     .filter(e -> e.getTitle() != null
-                            && e.getTitle().toLowerCase().contains(q.toLowerCase()))
+                            && e.getTitle()
+                            .toLowerCase()
+                            .contains(q.toLowerCase()))
                     .toList();
         }
 
         if ("price_asc".equals(sort)) {
+
             events = events.stream()
-                    .sorted((a, b) -> Double.compare(a.getFullPrice(), b.getFullPrice()))
+                    .sorted((a, b) ->
+                            Double.compare(
+                                    a.getFullPrice(),
+                                    b.getFullPrice()))
                     .toList();
+
         } else {
+
             events = events.stream()
-                    .sorted((a, b) -> a.getDate().compareTo(b.getDate()))
+                    .sorted((a, b) ->
+                            a.getDate()
+                                    .compareTo(b.getDate()))
                     .toList();
         }
 
@@ -63,18 +78,48 @@ public class ArenaController {
     }
 
     @GetMapping("/compra/{id}")
-    public String detalhesEvento(@PathVariable Long id, Model model) {
+    public String detalhesEvento(
+            @PathVariable Long id,
+            Model model) {
+
         return eventoRepository.findById(id)
-                .filter(e -> e.getStatus() == Evento.Status.APROVADO)
+                .filter(e ->
+                        e.getStatus() == Evento.Status.APROVADO)
                 .map(evento -> {
+
                     model.addAttribute("evento", evento);
+
                     return "compra";
+                })
+                .orElse("redirect:/events");
+    }
+
+    @GetMapping("/pagamento/{id}")
+    public String pagamento(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "1") int quantidade,
+            Model model) {
+
+        return eventoRepository.findById(id)
+                .filter(e ->
+                        e.getStatus() == Evento.Status.APROVADO)
+                .map(evento -> {
+
+                    model.addAttribute("evento", evento);
+
+                    model.addAttribute(
+                            "quantidade",
+                            quantidade
+                    );
+
+                    return "pagamento";
                 })
                 .orElse("redirect:/events");
     }
 
     @GetMapping("/confirmacao")
     public String confirmacao() {
+
         return "confirmacao";
     }
 }
