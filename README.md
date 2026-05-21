@@ -1,6 +1,6 @@
 # 🏟️ Arena de Pernambuco
 
-Aplicação web desenvolvida em Java com Spring Boot para melhorar a ocupação e a divulgação da Arena Pernambuco. O sistema atua entre a administração do equipamento público e a população, combatendo a desaproveitamento do espaço através de uma vitrine digital de eventos e ferramentas de gestão de dados.
+Aplicação web desenvolvida em Java com Spring Boot para melhorar a ocupação e a divulgação da Arena Pernambuco. O sistema atua entre a administração do equipamento público e a população, combatendo o subaproveitamento do espaço através de uma vitrine digital de eventos e ferramentas de gestão de dados.
 
 ## 🎯 Objetivo do Projeto
 
