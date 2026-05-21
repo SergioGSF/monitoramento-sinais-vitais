@@ -99,7 +99,7 @@ Responsável pela emissão de ingressos digitais, QR Codes e controle de acesso.
 
 Responsável pelo envio de notificações, e-mails e comunicações automáticas.
 
-### 🏛️ Principais Entidades
+## 🏛️ Principais Entidades
 
 - Usuário  
 - Evento  
@@ -123,7 +123,7 @@ Responsável pelo envio de notificações, e-mails e comunicações automáticas
 
 Os Objetos de Valor representam elementos imutáveis do domínio definidos exclusivamente pelos seus atributos.
 
-### 🔗 Relacionamentos Principais
+## 🔗 Relacionamentos Principais
 
 - Um usuário pode criar vários eventos  
 - Um usuário pode realizar várias reservas  
@@ -179,6 +179,8 @@ Evento
 
 Essa estrutura permite a implementação de uma arquitetura robusta em Spring Boot com padrão MVC, integração com banco de dados MySQL e aderência às exigências de segurança e conformidade da administração pública.
 
+A modelagem baseada em DDD permitiu maior separação de responsabilidades, desacoplamento entre contextos de negócio e alinhamento entre regras operacionais e arquitetura da aplicação.
+
 ## ⚙️ Arquitetura Inicial do Sistema (MVP)
 
 A versão inicial do sistema foi definida com foco em funcionalidade, escalabilidade e facilidade de evolução, garantindo uma base sólida para futuras integrações e expansão da plataforma.
@@ -198,7 +200,9 @@ Os principais componentes contemplados nesta fase são:
 - controle de acesso
 
 A estrutura foi planejada para suportar crescimento modular, integração com serviços governamentais e conformidade com as exigências de segurança da informação e LGPD.
+
 A arquitetura foi planejada para futura evolução baseada em microsserviços, permitindo desacoplamento entre contextos, escalabilidade horizontal e comunicação distribuída entre módulos.
+
 Os serviços poderão se comunicar via APIs REST e mensageria orientada a eventos utilizando RabbitMQ.
 
 ## 🛠️ Tecnologias Utilizadas
@@ -219,6 +223,7 @@ Os serviços poderão se comunicar via APIs REST e mensageria orientada a evento
 ### 🔄 Comunicação e Infraestrutura
 
 - RabbitMQ
+- Docker
 - Docker Compose
 - JWT Authentication
 
@@ -368,6 +373,9 @@ A topologia adotada foi do tipo estrela hierárquica, com separação entre aces
 - Geração de QR Code
 - Controle de acesso
 - Sistema de notificações
+- Validação de ingressos
+- Check-in de participantes
+- Integração com controle de catraca
 
 ## 🚀 Como Executar o Projeto
 
