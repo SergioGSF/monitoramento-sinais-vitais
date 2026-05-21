@@ -28,6 +28,18 @@ O sistema Arena Pernambuco possui como domínio principal a gestão de eventos e
 
 A modelagem foi estruturada com base em DDD (Domain-Driven Design), permitindo maior organização das regras de negócio, escalabilidade da aplicação e separação clara entre responsabilidades.
 
+### Linguagem Ubíqua
+
+| Termo | Definição |
+|---|---|
+| Evento | atividade oficial cadastrada na Arena Pernambuco |
+| Reserva | solicitação de uso do espaço |
+| Organizador | responsável pelo evento |
+| Agenda da Arena | calendário oficial de ocupação |
+| Ingresso | autorização digital de acesso |
+| Check-in | validação de entrada no evento |
+| QR Code | identificador digital único do ingresso |
+
 ### Domínio Principal
 
 ### Gestão de Eventos e Ocupação da Arena
@@ -45,7 +57,7 @@ Responsável por:
 
 #### Gestão de Eventos
 
-Responsável pelo cadastro, edição, categorizção e publicação dos eventos realizados na arena.
+Responsável pelo cadastro, edição, categorização e publicação dos eventos realizados na arena.
 
 #### Sistema de Reservas
 
@@ -59,7 +71,35 @@ Responsável pela autenticação, autorização e controle de acesso de administ
 
 Responsável pela geração de métricas como taxa de ocupação, reservas confirmadas, cancelamentos e relatórios gerenciais.
 
-### Principais Entidades
+---
+
+## 🧱 Contextos Delimitados (Bounded Contexts)
+
+### Contexto de Gestão de Eventos
+
+Responsável pelo gerenciamento dos eventos, agenda da arena e publicação de informações.
+
+### Contexto de Reservas
+
+Responsável pelo controle de reservas, disponibilidade e aprovação de solicitações.
+
+### Contexto de Identidade e Acesso
+
+Responsável pela autenticação, autorização e gerenciamento de usuários.
+
+### Contexto de Indicadores e Relatórios
+
+Responsável pela geração de indicadores, dashboards e relatórios administrativos.
+
+### Contexto de Ingressos
+
+Responsável pela emissão de ingressos digitais, QR Codes e controle de acesso.
+
+### Contexto de Notificações
+
+Responsável pelo envio de notificações, e-mails e comunicações automáticas.
+
+### 🏛️ Principais Entidades
 
 - Usuário  
 - Evento  
@@ -68,8 +108,22 @@ Responsável pela geração de métricas como taxa de ocupação, reservas confi
 - Categoria de Evento  
 - Indicadores  
 - Auditoria
+- Ingresso
 
-### Relacionamentos Principais
+---
+
+## 📦 Objetos de Valor (Value Objects)
+
+- CPF
+- Email
+- Período de Reserva
+- QRCode
+- Setor
+- Assento
+
+Os Objetos de Valor representam elementos imutáveis do domínio definidos exclusivamente pelos seus atributos.
+
+### 🔗 Relacionamentos Principais
 
 - Um usuário pode criar vários eventos  
 - Um usuário pode realizar várias reservas  
@@ -78,6 +132,50 @@ Responsável pela geração de métricas como taxa de ocupação, reservas confi
 - Cada evento ocupa um espaço na agenda da arena  
 - O sistema gera indicadores para apoio à gestão  
 - Todas as ações relevantes possuem rastreabilidade por auditoria
+
+---
+
+## 🏛️ Agregados e Regras de Negócio
+
+### Agregado Reserva
+
+#### Raiz do Agregado
+
+Reserva
+
+#### Regras Invariantes
+
+- Não pode existir conflito de horário entre reservas
+- Reservas canceladas liberam automaticamente a agenda
+- Apenas administradores podem aprovar reservas
+- Eventos precisam possuir organizador válido
+
+---
+
+### Agregado Evento
+
+#### Raiz do Agregado
+
+Evento
+
+#### Regras Invariantes
+
+- Evento deve possuir data válida
+- Evento não pode ultrapassar capacidade máxima da arena
+- QR Code deve ser único por ingresso
+
+---
+
+## 📡 Eventos de Domínio (Domain Events)
+
+| Evento | Publicador | Consumidor |
+|---|---|---|
+| EventoCriado | Serviço de Eventos | Serviço de Indicadores |
+| ReservaSolicitada | Serviço de Reservas | Serviço de Notificações |
+| ReservaAprovada | Serviço de Reservas | Serviço de Agenda |
+| PagamentoConfirmado | Serviço de Pagamentos | Serviço de Ingressos |
+| IngressoEmitido | Serviço de Ingressos | Serviço de Notificações |
+| CheckinRealizado | Serviço de Acesso | Serviço de Indicadores |
 
 Essa estrutura permite a implementação de uma arquitetura robusta em Spring Boot com padrão MVC, integração com banco de dados MySQL e aderência às exigências de segurança e conformidade da administração pública.
 
@@ -95,8 +193,13 @@ Os principais componentes contemplados nesta fase são:
 - módulo de indicadores e relatórios gerenciais
 - controle de usuários e permissões
 - auditoria e rastreabilidade de operações
+- emissão de ingressos digitais
+- geração de QR Code
+- controle de acesso
 
 A estrutura foi planejada para suportar crescimento modular, integração com serviços governamentais e conformidade com as exigências de segurança da informação e LGPD.
+A arquitetura foi planejada para futura evolução baseada em microsserviços, permitindo desacoplamento entre contextos, escalabilidade horizontal e comunicação distribuída entre módulos.
+Os serviços poderão se comunicar via APIs REST e mensageria orientada a eventos utilizando RabbitMQ.
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -112,6 +215,12 @@ A estrutura foi planejada para suportar crescimento modular, integração com se
 
 ### 🗄️ Banco de Dados
 - MySQL (via Docker) 🐳
+
+### 🔄 Comunicação e Infraestrutura
+
+- RabbitMQ
+- Docker Compose
+- JWT Authentication
 
 ## 🏗️ Planejamento de Infraestrutura
 
@@ -139,7 +248,7 @@ Objetivo: medir o alcance da vitrine digital e o interesse da população pelos 
 
 - Quantidade de eventos cadastrados  
 - Taxa de ocupação da Arena  
-- Taxxa de reservas confirmadas  
+- Taxa de reservas confirmadas  
 - Taxa de cancelamento  
 
 Fórmula da Taxa de Ocupação:
@@ -251,10 +360,14 @@ A topologia adotada foi do tipo estrela hierárquica, com separação entre aces
 
 ## 📊 Funcionalidades
 
-- Gestaõ de eventos  
-- Vitrini de eventos  
-- Sistema de reservas 
-- Painel de dados 
+- Gestão de eventos
+- Vitrine de eventos
+- Sistema de reservas
+- Painel de dados
+- Emissão de ingressos digitais
+- Geração de QR Code
+- Controle de acesso
+- Sistema de notificações
 
 ## 🚀 Como Executar o Projeto
 
@@ -312,12 +425,28 @@ O projeto segue uma arquitetura baseada no padrão MVC:
 - Repository: camada de acesso ao banco de dados com Spring Data JPA  
 - Service: regras de negócio da aplicação  
 - Controller: controle das requisições HTTP  
-- Templates: páginas HTML renderizadas com Thymeleaf  
+- Templates: páginas HTML renderizadas com Thymeleaf
+
+Além do padrão MVC utilizado atualmente, o sistema foi organizado considerando princípios de Clean Architecture e DDD, separando domínio, aplicação, infraestrutura e interface da aplicação para facilitar evolução futura para microsserviços.
+
+## 🔄 Padrões Arquiteturais
+
+### Publicação e Assinatura (Pub/Sub)
+
+Eventos publicados pelos serviços podem ser consumidos por múltiplos módulos sem acoplamento direto.
+
+### CQRS
+
+Separação entre operações de leitura e escrita visando melhor desempenho e escalabilidade.
+
+### Saga
+
+Coordenação distribuída entre serviços para garantir consistência em operações complexas.
 
 ## 🔮 Possíveis Melhorias Futuras
 - Integração com APIs de geolocalização e mapas 
 - Sistema de notificação automática  
-- Integração odiciais com sistemas governamentais
+- Integrações oficiais com sistemas governamentais
 - Validade jurídica de operações
 - Automações avançadas 
 
@@ -366,4 +495,3 @@ https://github.com/SergioGSF/programa-cultural-digital/issues
 
 - Screencast:
 https://youtu.be/S6uaMfQpTmw
-
