@@ -1,13 +1,16 @@
 package br.com.projeto.arenapernambuco.controller;
 
+import br.com.projeto.arenapernambuco.dto.CompraDTO;
 import br.com.projeto.arenapernambuco.model.Compra;
 import br.com.projeto.arenapernambuco.model.Evento;
 import br.com.projeto.arenapernambuco.repository.CompraRepository;
 import br.com.projeto.arenapernambuco.repository.EventoRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -25,29 +28,48 @@ public class IngressoController {
     @GetMapping("/meus-ingressos")
     @Transactional
     public String meusIngressos(Model model, Principal principal) {
+
         String emailLogado = principal.getName();
-        List<Compra> ingressos = compraRepository.findByEmail(emailLogado);
+
+        List<Compra> ingressos =
+                compraRepository.findByEmail(emailLogado);
+
         model.addAttribute("ingressos", ingressos);
+
         return "meus-ingressos";
     }
 
     @PostMapping("/confirmacao")
     @Transactional
-    public String processarCompra(@RequestParam("eventId") Long eventId,
-                                  @RequestParam("nome") String nome,
-                                  @RequestParam("cpf") String cpf,
-                                  @RequestParam(value = "quantidade", defaultValue = "1") int quantidade,
-                                  Principal principal) {
+    public String processarCompra(
+            @Valid @ModelAttribute CompraDTO dto,
+            BindingResult result,
+            Principal principal,
+            Model model) {
 
-        Evento evento = eventoRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+        if (result.hasErrors()) {
 
-        for (int i = 0; i < quantidade; i++) {
+            model.addAttribute(
+                    "erro",
+                    result.getFieldError().getDefaultMessage()
+            );
+
+            return "pagamento";
+        }
+
+        Evento evento = eventoRepository.findById(dto.getEventId())
+                .orElseThrow(() ->
+                        new RuntimeException("Evento não encontrado"));
+
+        for (int i = 0; i < dto.getQuantidade(); i++) {
+
             Compra novaCompra = new Compra();
+
             novaCompra.setEvent(evento);
-            novaCompra.setNome(nome);
-            novaCompra.setCpf(cpf);
+            novaCompra.setNome(dto.getNome());
+            novaCompra.setCpf(dto.getCpf());
             novaCompra.setEmail(principal.getName());
+
             compraRepository.save(novaCompra);
         }
 
@@ -55,8 +77,11 @@ public class IngressoController {
     }
 
     @PostMapping("/cancelar-ingresso/{id}")
-    public String cancelarIngresso(@PathVariable("id") Long id) {
+    public String cancelarIngresso(
+            @PathVariable("id") Long id) {
+
         compraRepository.deleteById(id);
+
         return "redirect:/meus-ingressos";
     }
 }
