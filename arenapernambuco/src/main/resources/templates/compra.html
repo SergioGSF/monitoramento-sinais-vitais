@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="pt-BR">
 
 <head>
 
@@ -21,81 +23,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
           rel="stylesheet">
 
-    <style>
-
-        .event-info{
-            display:grid;
-            grid-template-columns:2fr 1fr;
-            gap:30px;
-            align-items:start;
-        }
-
-        .image-showcase img{
-            width:100%;
-            max-height:350px;
-            object-fit:cover;
-            border-radius:12px;
-        }
-
-        .summary-card{
-            background:#fff;
-            border-radius:12px;
-            padding:24px;
-            box-shadow:0 2px 10px rgba(0,0,0,0.08);
-            position:sticky;
-            top:20px;
-        }
-
-        .controls{
-            display:flex;
-            align-items:center;
-            gap:15px;
-            margin-top:12px;
-        }
-
-        .qty-btn{
-            width:36px;
-            height:36px;
-            border:none;
-            border-radius:8px;
-            cursor:pointer;
-            font-size:20px;
-            background:#f1f1f1;
-        }
-
-        .qty-btn:hover{
-            background:#ddd;
-        }
-
-        .fees{
-            margin-top:25px;
-        }
-
-        .fee-row,
-        .total-row{
-            display:flex;
-            justify-content:space-between;
-            margin-top:12px;
-        }
-
-        .total-row{
-            font-size:18px;
-            font-weight:bold;
-        }
-
-        .btn-pagamento{
-            width:100%;
-            margin-top:25px;
-            height:50px;
-            border:none;
-            border-radius:10px;
-            cursor:pointer;
-            font-size:16px;
-            font-weight:bold;
-        }
-
-    </style>
-
 </head>
 
 <body>
@@ -114,10 +41,7 @@
                 Arena Pernambuco
             </span>
 
-            <span class="logo-subtitle"
-                  style="font-size:10px;
-                         color:#888;
-                         display:block;">
+            <span class="logo-subtitle">
 
                 Eventos e Entretenimento
 
@@ -127,36 +51,45 @@
 
     </div>
 
-    <nav class="nav-links"
-         style="display:flex;
-                gap:25px;
-                align-items:center;">
+    <nav class="nav-links">
 
-        <a th:href="@{/events}"
-           style="text-decoration:none;
-                  color:#666;
-                  font-size:14px;">
-
+        <a th:href="@{/events}">
             Eventos
-
         </a>
 
-        <a th:href="@{/meus-ingressos}"
-           style="text-decoration:none;
-                  color:#666;
-                  font-size:14px;">
-
+        <a th:href="@{/meus-ingressos}">
             Meus Ingressos
-
         </a>
 
-        <a th:href="@{/login}"
-           class="btn-primary"
-           style="padding:8px 20px;">
+        <!-- DESLOGADO -->
+        <div sec:authorize="isAnonymous()">
 
-            Entrar
+            <a th:href="@{/login}"
+               class="btn-primary">
 
-        </a>
+                Entrar
+
+            </a>
+
+        </div>
+
+        <!-- LOGADO -->
+        <div sec:authorize="isAuthenticated()">
+
+            <form th:action="@{/logout}"
+                  method="post"
+                  style="margin:0;">
+
+                <button type="submit"
+                        class="btn-primary logout-btn">
+
+                    Sair
+
+                </button>
+
+            </form>
+
+        </div>
 
     </nav>
 
@@ -167,10 +100,7 @@
     <div class="container-width">
 
         <a th:href="@{/events}"
-           class="btn-voltar"
-           style="text-decoration:none;
-                  color:white;
-                  font-weight:600;">
+           class="btn-voltar">
 
             ← Voltar para eventos
 
@@ -180,13 +110,11 @@
 
 </div>
 
-<main class="container"
-      style="max-width:1200px;
-             margin:40px auto;
-             padding:0 20px;">
+<main class="main-container">
 
     <section class="event-info">
 
+        <!-- LADO ESQUERDO -->
         <div>
 
             <div class="image-showcase">
@@ -196,19 +124,16 @@
 
             </div>
 
-            <div class="details-card"
-                 style="margin-top:20px;">
+            <div class="details-card">
 
                 <span class="category-tag"
                       th:text="${evento.category.name}">
                 </span>
 
-                <h1 th:text="${evento.title}"
-                    style="margin-top:15px;">
+                <h1 th:text="${evento.title}">
                 </h1>
 
-                <div class="info-list"
-                     style="margin-top:15px;">
+                <div class="info-list">
 
                     <p>
 
@@ -225,8 +150,7 @@
 
                 </div>
 
-                <div class="description"
-                     style="margin-top:20px;">
+                <div class="description">
 
                     <h3>
                         Sobre o evento
@@ -242,6 +166,7 @@
 
         </div>
 
+        <!-- SIDEBAR -->
         <aside class="checkout-sidebar">
 
             <div class="summary-card">
@@ -250,17 +175,13 @@
                     Resumo da Reserva
                 </h3>
 
-                <div class="price-section"
-                     style="margin-top:20px;">
+                <div class="price-section">
 
                     <span class="label">
                         Valor unitário
                     </span>
 
                     <div class="price"
-                         style="font-size:28px;
-                                font-weight:bold;
-                                margin-top:10px;"
                          th:text="'R$ ' + ${#numbers.formatDecimal(evento.fullPrice,1,2,'DEFAULT')}">
                     </div>
 
@@ -274,8 +195,7 @@
                            name="quantidade"
                            value="1">
 
-                    <div class="qty-selector"
-                         style="margin-top:25px;">
+                    <div class="qty-selector">
 
                         <span>
                             Quantidade
@@ -291,9 +211,7 @@
 
                             </button>
 
-                            <span id="quantidadeTexto"
-                                  style="font-size:20px;
-                                         font-weight:bold;">
+                            <span id="quantidadeTexto">
 
                                 1
 
