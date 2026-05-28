@@ -42,6 +42,7 @@
 
             <form th:action="@{/confirmacao}"
                   method="post"
+                id="pagamentoForm"
                   novalidate>
 
                 <input type="hidden"
@@ -66,6 +67,7 @@
 
                         <input type="text"
                                name="numeroCartao"
+                               id="numeroCartao"
                                placeholder="0000 0000 0000 0000"
                                maxlength="19"
                                inputmode="numeric"
@@ -99,6 +101,7 @@
 
                             <input type="text"
                                    name="cvv"
+                                   id="cvv"
                                    placeholder="123"
                                    maxlength="4"
                                    inputmode="numeric"
@@ -131,8 +134,9 @@
 
                         <input type="text"
                                name="cpf"
-                               placeholder="00000000000"
-                               maxlength="11"
+                               id="cpf"
+                               placeholder="000.000.000-00"
+                               maxlength="14"
                                inputmode="numeric"
                                required>
 
@@ -218,8 +222,67 @@
 
 document.addEventListener("DOMContentLoaded", function(){
 
+    const form =
+        document.getElementById("pagamentoForm");
+
+    const numeroCartao =
+        document.getElementById("numeroCartao");
+
     const validade =
         document.getElementById("validade");
+
+    const cvv =
+        document.getElementById("cvv");
+
+    const cpf =
+        document.getElementById("cpf");
+
+    function onlyDigits(input, maxLength){
+        input.addEventListener("input", function(e){
+            e.target.value = e.target.value
+                .replace(/\D/g, "")
+                .slice(0, maxLength);
+        });
+    }
+
+    onlyDigits(cvv, 4);
+
+    function formatCard(value){
+        const digits = value
+            .replace(/\D/g, "")
+            .slice(0, 16);
+
+        return (digits.match(/.{1,4}/g) || [])
+            .join(" ");
+    }
+
+    function formatCpf(value){
+        const digits = value
+            .replace(/\D/g, "")
+            .slice(0, 11);
+
+        if(digits.length <= 3){
+            return digits;
+        }
+
+        if(digits.length <= 6){
+            return digits.replace(/(\d{3})(\d+)/, "$1.$2");
+        }
+
+        if(digits.length <= 9){
+            return digits.replace(/(\d{3})(\d{3})(\d+)/, "$1.$2.$3");
+        }
+
+        return digits.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
+    }
+
+    numeroCartao.addEventListener("input", function(e){
+        e.target.value = formatCard(e.target.value);
+    });
+
+    cpf.addEventListener("input", function(e){
+        e.target.value = formatCpf(e.target.value);
+    });
 
     validade.addEventListener("input", function(e){
 
@@ -251,6 +314,20 @@ document.addEventListener("DOMContentLoaded", function(){
         }
 
         e.target.value = valor;
+    });
+
+    form.addEventListener("submit", function(){
+        numeroCartao.value = numeroCartao.value
+            .replace(/\D/g, "")
+            .slice(0, 16);
+
+        cvv.value = cvv.value
+            .replace(/\D/g, "")
+            .slice(0, 4);
+
+        cpf.value = cpf.value
+            .replace(/\D/g, "")
+            .slice(0, 11);
     });
 
 });
