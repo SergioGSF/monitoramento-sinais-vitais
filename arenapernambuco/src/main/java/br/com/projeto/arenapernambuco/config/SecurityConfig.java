@@ -3,10 +3,15 @@ package br.com.projeto.arenapernambuco.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfig {
@@ -52,14 +57,22 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SavedRequestAwareAuthenticationSuccessHandler successHandler() {
+    public AuthenticationSuccessHandler successHandler() {
+        return (HttpServletRequest request, HttpServletResponse response, Authentication authentication) -> {
+            var roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
-        SavedRequestAwareAuthenticationSuccessHandler handler =
-                new SavedRequestAwareAuthenticationSuccessHandler();
+            if (roles.contains("ROLE_GESTOR")) {
+                response.sendRedirect("/gestor/dashboard");
+                return;
+            }
 
-        handler.setDefaultTargetUrl("/events");
+            if (roles.contains("ROLE_EMPRESA")) {
+                response.sendRedirect("/empresa/dashboard");
+                return;
+            }
 
-        return handler;
+            response.sendRedirect("/events");
+        };
     }
 
     @Bean
