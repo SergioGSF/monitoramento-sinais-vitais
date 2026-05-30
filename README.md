@@ -24,7 +24,7 @@ Facilitar a comunicação entre interessados e a administração da Arena, incen
 
 ## 🧩 Modelagem de Domínio (DDD)
 
-O sistema Arena Pernambuco possui como domínio principal a gestão de eventos e ocupação da arena, com foco na administração eficiente do espaço público, divulgação de eventos e apoio à tomada de decisão por meio de indicadores estratégicos.
+O sistema Arena Pernambuco possui como domínio principal a gestão, aprovação de eventos e ocupação da arena, com foco na administração eficiente do espaço público, divulgação de eventos e apoio à tomada de decisão por meio de indicadores estratégicos.
 
 A modelagem foi estruturada com base em DDD (Domain-Driven Design), permitindo maior organização das regras de negócio, escalabilidade da aplicação e separação clara entre responsabilidades.
 
@@ -33,8 +33,11 @@ A modelagem foi estruturada com base em DDD (Domain-Driven Design), permitindo m
 | Termo | Definição |
 |---|---|
 | Evento | atividade oficial cadastrada na Arena Pernambuco |
+| Solicitação de Evento | pedido realizado por um organizador para utilização da Arena |
 | Reserva | solicitação de uso do espaço |
-| Organizador | responsável pelo evento |
+| Organizador | empresa responsável pela criação e execução do evento |
+| Cliente | usuário que consulta eventos e adquire ingressos |
+| Gestor | responsável pela aprovação ou rejeição dos eventos |
 | Agenda da Arena | calendário oficial de ocupação |
 | Ingresso | autorização digital de acesso |
 | Check-in | validação de entrada no evento |
@@ -42,15 +45,16 @@ A modelagem foi estruturada com base em DDD (Domain-Driven Design), permitindo m
 
 ### Domínio Principal
 
-### Gestão de Eventos e Ocupação da Arena
+### Gestão, Aprovação de Eventos e Ocupação da Arena
 
 Responsável por:
 
-- cadastro e publicação de eventos  
-- solicitação e controle de reservas  
-- gestão da agenda da arena  
-- vitrine pública de eventos  
-- geração de indicadores administrativos  
+- cadastro de solicitações de eventos
+- análise e aprovação de eventos
+- gestão da agenda da arena
+- vitrine pública de eventos
+- venda de ingressos
+- geração de indicadores administrativos
 - suporte à gestão institucional
 
 ### Principais Subdomínios
@@ -59,13 +63,21 @@ Responsável por:
 
 Responsável pelo cadastro, edição, categorização e publicação dos eventos realizados na arena.
 
+#### Aprovação de Eventos
+
+Responsável pela análise, aprovação ou rejeição das solicitações realizadas pelos organizadores.
+
 #### Sistema de Reservas
 
 Responsável pela solicitação, aprovação e controle de uso do espaço físico, evitando conflitos de agenda.
 
 #### Usuários e Perfis
 
-Responsável pela autenticação, autorização e controle de acesso de administradores, organizadores e usuários externos.
+Responsável pela autenticação, autorização e controle de acesso dos perfis:
+
+- Cliente
+- Organizador
+- Gestor
 
 #### Indicadores e Relatórios
 
@@ -78,6 +90,10 @@ Responsável pela geração de métricas como taxa de ocupação, reservas confi
 ### Contexto de Gestão de Eventos
 
 Responsável pelo gerenciamento dos eventos, agenda da arena e publicação de informações.
+
+### Contexto de Aprovação de Eventos
+
+Responsável pela análise, aprovação, rejeição e acompanhamento das solicitações de eventos realizadas pelos organizadores.
 
 ### Contexto de Reservas
 
@@ -101,14 +117,22 @@ Responsável pelo envio de notificações, e-mails e comunicações automáticas
 
 ## 🏛️ Principais Entidades
 
-- Usuário  
-- Evento  
-- Reserva  
-- Agenda da Arena  
-- Categoria de Evento  
-- Indicadores  
+- Usuário
+- Evento
+- Reserva
+- Agenda da Arena
+- Categoria de Evento
+- Indicadores
 - Auditoria
 - Ingresso
+
+#### Usuários e Perfis
+
+Responsável pela autenticação, autorização e controle de acesso dos perfis:
+
+- Cliente
+- Organizador
+- Gestor
 
 ---
 
@@ -125,12 +149,16 @@ Os Objetos de Valor representam elementos imutáveis do domínio definidos exclu
 
 ## 🔗 Relacionamentos Principais
 
-- Um usuário pode criar vários eventos  
-- Um usuário pode realizar várias reservas  
-- Cada reserva está vinculada a um evento  
-- Cada evento pertence a uma categoria  
-- Cada evento ocupa um espaço na agenda da arena  
-- O sistema gera indicadores para apoio à gestão  
+- Um organizador pode criar vários eventos
+- Um cliente pode adquirir vários ingressos
+- Um gestor pode aprovar ou rejeitar eventos
+- Cada evento pertence a um organizador
+- Cada reserva está vinculada a um evento
+- Cada evento pertence a uma categoria
+- Cada evento ocupa um espaço na agenda da arena
+- Cada ingresso pertence a um cliente
+- Cada ingresso está vinculado a um evento
+- O sistema gera indicadores para apoio à gestão
 - Todas as ações relevantes possuem rastreabilidade por auditoria
 
 ---
@@ -139,15 +167,11 @@ Os Objetos de Valor representam elementos imutáveis do domínio definidos exclu
 
 ### Agregado Reserva
 
-#### Raiz do Agregado
-
-Reserva
-
 #### Regras Invariantes
 
 - Não pode existir conflito de horário entre reservas
 - Reservas canceladas liberam automaticamente a agenda
-- Apenas administradores podem aprovar reservas
+- Apenas gestores podem aprovar reservas
 - Eventos precisam possuir organizador válido
 
 ---
@@ -163,6 +187,10 @@ Evento
 - Evento deve possuir data válida
 - Evento não pode ultrapassar capacidade máxima da arena
 - QR Code deve ser único por ingresso
+- Apenas organizadores podem criar eventos
+- Todo evento inicia com status PENDENTE
+- Apenas gestores podem aprovar ou rejeitar eventos
+- Somente eventos aprovados podem ser publicados
 
 ---
 
@@ -170,16 +198,14 @@ Evento
 
 | Evento | Publicador | Consumidor |
 |---|---|---|
-| EventoCriado | Serviço de Eventos | Serviço de Indicadores |
+| EventoSolicitado | Serviço de Eventos | Serviço de Aprovação |
+| EventoAprovado | Serviço de Aprovação | Serviço de Eventos |
+| EventoRejeitado | Serviço de Aprovação | Serviço de Notificações |
 | ReservaSolicitada | Serviço de Reservas | Serviço de Notificações |
 | ReservaAprovada | Serviço de Reservas | Serviço de Agenda |
 | PagamentoConfirmado | Serviço de Pagamentos | Serviço de Ingressos |
 | IngressoEmitido | Serviço de Ingressos | Serviço de Notificações |
 | CheckinRealizado | Serviço de Acesso | Serviço de Indicadores |
-
-Essa estrutura permite a implementação de uma arquitetura robusta em Spring Boot com padrão MVC, integração com banco de dados MySQL e aderência às exigências de segurança e conformidade da administração pública.
-
-A modelagem baseada em DDD permitiu maior separação de responsabilidades, desacoplamento entre contextos de negócio e alinhamento entre regras operacionais e arquitetura da aplicação.
 
 ## ⚙️ Arquitetura Inicial do Sistema (MVP)
 
@@ -190,7 +216,9 @@ O MVP (Minimum Viable Product) contempla os principais fluxos operacionais da Ar
 Os principais componentes contemplados nesta fase são:
 
 - vitrine digital de eventos
-- sistema de solicitação e controle de reservas
+- sistema de solicitação de eventos pelos organizadores
+- fluxo de aprovação e rejeição de eventos pelos gestores
+- sistema de reservas e controle da agenda da arena
 - painel administrativo para gestão interna
 - módulo de indicadores e relatórios gerenciais
 - controle de usuários e permissões
@@ -366,6 +394,7 @@ A topologia adotada foi do tipo estrela hierárquica, com separação entre aces
 ## 📊 Funcionalidades
 
 - Gestão de eventos
+- Aprovação de eventos
 - Vitrine de eventos
 - Sistema de reservas
 - Painel de dados
