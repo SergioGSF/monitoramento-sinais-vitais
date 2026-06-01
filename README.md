@@ -281,11 +281,13 @@ Internet
 │
 Load Balancer
 │
-EC2 (Spring Boot + RabbitMQ)
+EC2 (Spring Boot)
+│
+RabbitMQ
 │
 RDS MySQL
 │
-S3 (Backups)
+S3
 
 #### Características
 
@@ -586,12 +588,57 @@ Separação entre operações de leitura e escrita visando melhor desempenho e e
 
 Coordenação distribuída entre serviços para garantir consistência em operações complexas.
 
-## 🔮 Possíveis Melhorias Futuras
-- Integração com APIs de geolocalização e mapas 
-- Sistema de notificação automática  
-- Integrações oficiais com sistemas governamentais
-- Validade jurídica de operações
-- Automações avançadas 
+## 🚀 Evolução Arquitetural Futura
+
+Com o crescimento da plataforma, as seguintes melhorias arquiteturais poderão ser implementadas para aumentar o desempenho, disponibilidade e escalabilidade do sistema:
+
+### Escalabilidade
+
+- Migração gradual do monólito para arquitetura baseada em microsserviços.
+- Implementação de Auto Scaling para ajuste automático da capacidade computacional.
+- Utilização de Kubernetes para orquestração de containers.
+
+### Desempenho
+
+- Implementação de cache distribuído com Redis.
+- Utilização de CDN para distribuição de conteúdo estático.
+- Otimização de consultas ao banco de dados com índices e particionamento.
+
+### Disponibilidade
+
+- Replicação do banco de dados em múltiplas zonas de disponibilidade.
+- Balanceamento de carga entre múltiplas instâncias da aplicação.
+- Estratégias de recuperação de desastre e failover automático.
+
+### Observabilidade
+
+- Monitoramento centralizado com Prometheus e Grafana.
+- Coleta de logs com ELK Stack (Elasticsearch, Logstash e Kibana).
+- Alertas automáticos para incidentes operacionais.
+
+### Segurança
+
+- Implementação de Web Application Firewall (WAF).
+- Gestão centralizada de segredos e credenciais.
+- Ampliação das políticas de auditoria e rastreabilidade.
+
+### Arquitetura Orientada a Eventos
+
+- Expansão do uso do RabbitMQ entre todos os contextos delimitados.
+- Processamento assíncrono de notificações, relatórios e indicadores.
+- Adoção de padrões Event Sourcing em módulos estratégicos.
+
+Essas melhorias poderão ser implementadas gradualmente conforme o aumento da demanda da plataforma, garantindo crescimento sustentável sem comprometer desempenho, disponibilidade e segurança.
+
+## 🔮 Funcionalidades Futuras
+
+- Integração com APIs de geolocalização e mapas
+- Integração com sistemas governamentais
+- Sistema avançado de notificações
+- Integração com catracas inteligentes
+- Assinatura eletrônica de documentos
+- Aplicativo móvel para participantes
+- Painéis analíticos avançados para gestores
 
 ## 👥 Equipe
 
