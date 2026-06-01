@@ -375,6 +375,109 @@ S3
 
 A evolução da infraestrutura ocorre de forma gradual, acompanhando o crescimento da demanda da plataforma, garantindo desempenho, disponibilidade e redução de custos operacionais.
 
+## 🚀 Estratégia de Deploy em Ambiente Real
+
+A estratégia de implantação da plataforma Arena Pernambuco foi definida para garantir disponibilidade, segurança, escalabilidade e facilidade de manutenção em ambiente de produção.
+
+### Processo de Deploy
+
+O código-fonte é armazenado em repositório Git e submetido a um pipeline de Integração Contínua e Entrega Contínua (CI/CD).
+
+Fluxo de implantação:
+
+```text
+Desenvolvedor
+      │
+      ▼
+GitHub
+      │
+      ▼
+Pipeline CI/CD
+(Testes e Build)
+      │
+      ▼
+Docker Image
+      │
+      ▼
+Registry de Containers
+      │
+      ▼
+Ambiente de Produção
+```
+
+### Pipeline CI/CD
+
+As etapas automatizadas do pipeline são:
+
+1. Validação do código-fonte.
+2. Execução de testes automatizados.
+3. Geração do artefato da aplicação.
+4. Construção da imagem Docker.
+5. Publicação da imagem em registry.
+6. Implantação automática no ambiente de produção.
+
+### Estratégia de Contêineres
+
+A aplicação é empacotada utilizando Docker, garantindo portabilidade e padronização entre os ambientes de desenvolvimento, homologação e produção.
+
+Componentes executados em containers:
+
+* Aplicação Spring Boot
+* Banco de Dados MySQL
+* RabbitMQ
+* Serviços auxiliares de monitoramento
+
+### Ambientes
+
+#### Desenvolvimento
+
+Utilizado pelos desenvolvedores para implementação e testes locais.
+
+#### Homologação
+
+Utilizado para validação funcional antes da publicação em produção.
+
+#### Produção
+
+Ambiente acessado pelos usuários finais e gestores da Arena Pernambuco.
+
+### Estratégia de Atualização
+
+Para minimizar indisponibilidades, a implantação poderá utilizar a estratégia Rolling Update.
+
+Benefícios:
+
+* Atualização gradual das instâncias.
+* Redução do tempo de indisponibilidade.
+* Possibilidade de reversão rápida em caso de falhas.
+
+### Monitoramento Pós-Deploy
+
+Após cada implantação serão monitorados:
+
+* Disponibilidade da aplicação.
+* Consumo de CPU e memória.
+* Tempo de resposta.
+* Taxa de erros.
+* Logs da aplicação.
+
+### Recuperação de Falhas
+
+Em caso de falha durante a implantação:
+
+* Retorno automático para a versão anterior.
+* Recuperação através de imagens Docker versionadas.
+* Restauração de backups do banco de dados quando necessário.
+
+### Benefícios da Estratégia
+
+* Implantação automatizada.
+* Redução de erros manuais.
+* Facilidade de escalabilidade.
+* Alta disponibilidade.
+* Maior confiabilidade operacional.
+* Padronização dos ambientes.
+
 ## 📈 Indicadores de Monitoramento
 
 ### Indicadores de Uso da Plataforma
