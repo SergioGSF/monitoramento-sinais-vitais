@@ -267,6 +267,112 @@ Os serviços poderão se comunicar via APIs REST e mensageria orientada a evento
 - Conformidade: o tratamento de dados deve seguir as diretrizes da LGPD (Lei Geral de Proteção de Dados).
 - Ambiente: a aplicação deve ser executada obrigatoriamente em containers para garantir portabilidade entre servidores governamentais.
 
+## ☁️ Arquiteturas em Nuvem e Escalabilidade
+
+A infraestrutura da Arena Pernambuco foi planejada para suportar diferentes níveis de utilização, permitindo evolução gradual da plataforma sem necessidade de reestruturação completa.
+
+### 🟢 Baixo Uso
+
+Destinado ao MVP e ambientes de homologação.
+
+#### Arquitetura
+
+Internet
+│
+Load Balancer
+│
+EC2 (Spring Boot + RabbitMQ)
+│
+RDS MySQL
+│
+S3 (Backups)
+
+#### Características
+
+- 1 instância EC2
+- Banco gerenciado RDS MySQL
+- Armazenamento em S3
+- Monitoramento com CloudWatch
+- Escalabilidade vertical
+
+---
+
+### 🟡 Médio Uso
+
+Destinado ao crescimento da plataforma e aumento da quantidade de eventos.
+
+#### Arquitetura
+
+Internet
+│
+CloudFront
+│
+Load Balancer
+│
+├── EC2 App 1
+├── EC2 App 2
+│
+RabbitMQ
+│
+RDS MySQL
+│
+S3
+
+#### Características
+
+- Balanceamento de carga
+- Duas instâncias da aplicação
+- Cache com CloudFront
+- Escalabilidade horizontal inicial
+- Alta disponibilidade
+
+---
+
+### 🔴 Alto Uso
+
+Destinado a grandes eventos e elevado volume de acessos simultâneos.
+
+#### Arquitetura
+
+Internet
+│
+CloudFront
+│
+API Gateway
+│
+Load Balancer
+│
+Amazon EKS
+├── Serviço de Eventos
+├── Serviço de Reservas
+├── Serviço de Ingressos
+│
+RabbitMQ Cluster
+│
+Aurora MySQL Cluster
+│
+S3
+
+#### Características
+
+- Microsserviços
+- Kubernetes (EKS)
+- Auto Scaling
+- Banco de dados em cluster
+- Alta disponibilidade e tolerância a falhas
+
+---
+
+### 📊 Estratégia de Evolução
+
+| Nível | Aplicação | Banco de Dados | Escalabilidade |
+|---------|---------|---------|---------|
+| Baixo | 1 EC2 | RDS MySQL | Vertical |
+| Médio | 2 EC2 | RDS MySQL | Horizontal |
+| Alto | EKS | Aurora Cluster | Horizontal Automática |
+
+A evolução da infraestrutura ocorre de forma gradual, acompanhando o crescimento da demanda da plataforma, garantindo desempenho, disponibilidade e redução de custos operacionais.
+
 ## 📈 Indicadores de Monitoramento
 
 ### Indicadores de Uso da Plataforma
